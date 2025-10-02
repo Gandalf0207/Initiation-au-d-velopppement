@@ -8,26 +8,37 @@ public class EXO1 {
 
     public static void menu() {
         Scanner sc = new Scanner(System.in);
-        int num = sc.nextInt();
+        boolean valid = true;
 
-        switch (num) {
-            case 1: {
-                int n = sc.nextInt();
-                EXO1.suiteOrOrdre(n);
-            };
+        do  {
+            int num = sc.nextInt();
+            switch (num) {
+                case 1: {
+                    int n = sc.nextInt();
+                    EXO1.suiteOrOrdre(n);
+                };
+    
+                case 2: {
+                    double epsi = sc.nextDouble();
+                    EXO1.suiteOrEpsilon(epsi);
+                };
+                case 3: {
+                    valid = false;
+                };
+                case 4: {
+                    int n = sc.nextInt();
+                    double espi = sc.nextDouble();
+                    EXO1.comparaison(n, espi);
+                }
 
-            case 2: {
-                double epsi = sc.nextDouble();
-                EXO1.suiteOrEpsilon(epsi);
-            };
-            case 3: {;}
-            default: {;}
-        }
+                default: {;}
+            }
+        } while (valid);
     }
 
     public static double Fibo(int n) {
 
-        int a = 0;
+        int a = 1;
         int b = 1;
         for (int i = 0; i < n; i++) {
             int temp = a;
@@ -54,6 +65,7 @@ public class EXO1 {
         int i = 2;
         double Vi;
         double PVi;
+        double phi = (1 + Math.sqrt(5)) / 2;
 
         do {
             Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
@@ -64,6 +76,44 @@ public class EXO1 {
             System.out.println("Valeur de P(Vi) : " + PVi);
 
             i++;
-        } while (Math.abs(Vi - PVi) > epsi); // marche pas
+        } while (Math.abs(Vi - phi) > epsi);
+    }
+
+    public static void comparaison(int n, double epsi) {
+
+        System.out.println("-------------------------------");
+        System.out.println("Avec n : " +n);
+
+        for (int i = 2; i <= n; i++) {
+            double Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
+            double Vi_1 = EXO1.Fibo(i-1) / EXO1.Fibo(i - 2);
+            double Wi = (Vi + Vi_1) / 2;
+
+            System.out.println("Valeur de i : " + i);
+            System.out.println("Valeur de Vi : " + Vi);
+            System.out.println("Valeur de Wi : " + Wi);
+
+        } 
+
+        // --------------- //
+
+        System.out.println("-------------------------------");
+        System.out.println("Avec epsi : " + epsi);
+
+        int i = 2;
+        double Vi;
+        double phi = (1 + Math.sqrt(5)) / 2;
+
+        do {
+            Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
+            double Vi_1 = EXO1.Fibo(i-1) / EXO1.Fibo(i - 2);
+            double Wi = (Vi + Vi_1) / 2;
+
+            System.out.println("Valeur de i : " + i);
+            System.out.println("Valeur de Vi : " + Vi);
+            System.out.println("Valeur de Wi : " + Wi);
+
+            i++;
+        } while (Math.abs(Vi - phi) > epsi);
     }
 }
