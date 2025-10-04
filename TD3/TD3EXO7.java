@@ -1,12 +1,12 @@
 
 import java.util.Scanner;
 
-public class EXO7 {
+public class TD3EXO7 {
     public static void main(String[] args){
         Scanner sc  = new Scanner(System.in);
         int nb = sc.nextInt();
         int nbMax = sc.nextInt();
-        System.out.print(EXO7.estSyracusieEnNbMawOp(nb, nbMax));
+        System.out.print(TD3EXO7.estSyracusieEnNbMawOp(nb, nbMax));
     }
 
     public static boolean estSyracusieEnNbMawOp(int n, int nbMaxOp){

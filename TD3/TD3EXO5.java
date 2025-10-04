@@ -1,11 +1,12 @@
+package TD3;
 
 import java.util.Scanner;
 
-public class EXO5 {
+public class TD3EXO5 {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int nb = sc.nextInt();
-        System.out.print(EXO5.estCarreParfait(nb));
+        System.out.print(TD3EXO5.estCarreParfait(nb));
     }
 
     public static int racineParfait(int c){
@@ -17,6 +18,7 @@ public class EXO5 {
     }
 
     public static boolean estCarreParfait(int n){
-        return (EXO5.racineParfait(n) != -1) ? true:false;
+        return (TD3EXO5.racineParfait(n) != -1) ? true:false;
     }
+
 }

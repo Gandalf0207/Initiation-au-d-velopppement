@@ -2,7 +2,7 @@ package TD3;
 
 import java.util.Scanner;
 
-public class EXO1 {
+public class TD3EXO1 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -10,7 +10,7 @@ public class EXO1 {
         char c = sc.next().charAt(0);
 
         //call procédures
-        EXO1.pyramideSimple(h, c);
+        TD3EXO1.pyramideSimple(h, c);
         sc.close();
     }
 
@@ -27,10 +27,10 @@ public class EXO1 {
             for (int it = 0; it <= h; it++) {
 
                 // espace devant les lignes pour le décalage
-                EXO1.repeteCarac(h-it, ' ');
+                TD3EXO1.repeteCarac(h-it, ' ');
 
                 //call des lignes
-                EXO1.repeteCarac(it*2-1, c);
+                TD3EXO1.repeteCarac(it*2-1, c);
                 System.out.println();
             }
         }

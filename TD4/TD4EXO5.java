@@ -1,7 +1,8 @@
-public class EXO5 {
+
+public class TD4EXO5 {
     public static void main(String[] args) {
         int[] tab = {4, 0, 5, 2, 0, 0, 2, 4, 0, 4};
-        EXO5.triSelection(tab);
+        TD4EXO5.triSelection(tab);
     }
 
     public static void triSelection(int[] tab){

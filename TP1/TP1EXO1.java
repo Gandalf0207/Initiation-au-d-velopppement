@@ -1,9 +1,9 @@
 
 import java.util.Scanner;
 
-public class EXO1 {
+public class TP1EXO1 {
     public static void main(String[] args) {
-        EXO1.menu();
+        TP1EXO1.menu();
     }
 
     public static void menu() {
@@ -15,12 +15,12 @@ public class EXO1 {
             switch (num) {
                 case 1: {
                     int n = sc.nextInt();
-                    EXO1.suiteOrOrdre(n);
+                    TP1EXO1.suiteOrOrdre(n);
                 };
     
                 case 2: {
                     double epsi = sc.nextDouble();
-                    EXO1.suiteOrEpsilon(epsi);
+                    TP1EXO1.suiteOrEpsilon(epsi);
                 };
                 case 3: {
                     valid = false;
@@ -28,7 +28,7 @@ public class EXO1 {
                 case 4: {
                     int n = sc.nextInt();
                     double espi = sc.nextDouble();
-                    EXO1.comparaison(n, espi);
+                    TP1EXO1.comparaison(n, espi);
                 }
 
                 default: {;}
@@ -52,7 +52,7 @@ public class EXO1 {
     public static void suiteOrOrdre(int n) {
         if (n > 2) {
             for (int i = 2; i <= n; i++) {
-                double Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
+                double Vi = TP1EXO1.Fibo(i) / TP1EXO1.Fibo(i - 1);
                 double PVi = Vi * Vi - Vi - 1;
 
                 System.out.println("Valeur de i : " + i);
@@ -69,7 +69,7 @@ public class EXO1 {
         double phi = (1 + Math.sqrt(5)) / 2;
 
         do {
-            Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
+            Vi = TP1EXO1.Fibo(i) / TP1EXO1.Fibo(i - 1);
             PVi = Vi * Vi - Vi - 1;
 
             System.out.println("Valeur de i : " + i);
@@ -86,8 +86,8 @@ public class EXO1 {
         System.out.println("Avec n : " +n);
 
         for (int i = 2; i <= n; i++) {
-            double Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
-            double Vi_1 = EXO1.Fibo(i-1) / EXO1.Fibo(i - 2);
+            double Vi = TP1EXO1.Fibo(i) / TP1EXO1.Fibo(i - 1);
+            double Vi_1 = TP1EXO1.Fibo(i-1) / TP1EXO1.Fibo(i - 2);
             double Wi = (Vi + Vi_1) / 2;
 
             System.out.println("Valeur de i : " + i);
@@ -106,8 +106,8 @@ public class EXO1 {
         double phi = (1 + Math.sqrt(5)) / 2;
 
         do {
-            Vi = EXO1.Fibo(i) / EXO1.Fibo(i - 1);
-            double Vi_1 = EXO1.Fibo(i-1) / EXO1.Fibo(i - 2);
+            Vi = TP1EXO1.Fibo(i) / TP1EXO1.Fibo(i - 1);
+            double Vi_1 = TP1EXO1.Fibo(i-1) / TP1EXO1.Fibo(i - 2);
             double Wi = (Vi + Vi_1) / 2;
 
             System.out.println("Valeur de i : " + i);

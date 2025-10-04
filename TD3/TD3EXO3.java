@@ -1,6 +1,8 @@
+package TD3;
+
 import java.util.Scanner;
 
-public class EXO3 {
+public class TD3EXO3 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -8,8 +10,8 @@ public class EXO3 {
         int b = sc.nextInt();
         int c = sc.nextInt();
 
-        System.out.println(EXO3.max2(a, b));
-        System.out.println(EXO3.max3(a, b, c));
+        System.out.println(TD3EXO3.max2(a, b));
+        System.out.println(TD3EXO3.max3(a, b, c));
     }
 
     public static int max2(int a, int b){

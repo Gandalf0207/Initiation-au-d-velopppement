@@ -1,8 +1,8 @@
-public class EXO6 {
+public class TD4EXO6 {
 
     public static void main(String[] args) {
         int[] tab = {4, 0, 5, 2, 0, 0, 2, 4, 0, 4};
-        EXO6.compactage(tab);
+        TD4EXO6.compactage(tab);
         
     }
 

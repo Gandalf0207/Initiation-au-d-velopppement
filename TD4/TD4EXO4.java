@@ -1,8 +1,8 @@
-public class EXO4 {
+public class TD4EXO4 {
     public static void main(String[] args) {
-        System.err.println(EXO4.estPalindrome("KAYAK"));
-        System.err.println(EXO4.estPalindrome("saippuakivikauppias"));
-        System.err.println(EXO4.estPalindrome("RESTER"));
+        System.err.println(TD4EXO4.estPalindrome("KAYAK"));
+        System.err.println(TD4EXO4.estPalindrome("saippuakivikauppias"));
+        System.err.println(TD4EXO4.estPalindrome("RESTER"));
     }
 
     public static boolean estPalindrome(String mot){

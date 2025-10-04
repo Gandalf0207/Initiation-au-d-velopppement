@@ -42,7 +42,7 @@ public class EXO2 {
         for(int i = 1; i <= h ; i++){
 
             // espace avant les caractères
-            EXO1.repeteCarac(2*h-i*2+1,  ' ');
+            TD3EXO1.repeteCarac(2*h-i*2+1,  ' ');
 
             EXO2.afficheNombresCroissants(i, cptMax); // monté gauche
             EXO2.afficheNombresDecroissants(cptMax-1, i); // monté droite

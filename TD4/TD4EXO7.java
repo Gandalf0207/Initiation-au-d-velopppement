@@ -1,7 +1,11 @@
-public class EXO7 {
+public class TD4EXO7 {
     public static void main(String[] args){
         char[] tab = {'R', 'R', 'A' , 'R', 'R', 'R', 'R', 'R', 'Z', 'Z'};
-        EXO7.plateau(tab);
+        int[] result = TD4EXO7.plateau(tab);
+        for(int elt:result) {
+            System.out.print(elt + " ");
+        }
+
     }
 
     public static int[] plateau(char[] tab){
@@ -14,20 +18,21 @@ public class EXO7 {
         int i = 0;
         do { 
             int totalTemp = 0;
-            while (i < tab.length && tab[i] == carac) { 
+            int indiceTemp = i;
+            while (i < tab.length-1 && tab[i] == carac) {
                 i++;
                 totalTemp ++;
             }
 
             if (totalTemp > total) {
                 total = totalTemp;
-                indiceStart = i;
+                indiceStart = indiceTemp;
             }
 
             carac = tab[i];
 
 
-        } while (i < tab.length);
+        } while (i < tab.length-1);
 
         tabReturn[0] = indiceStart; 
         tabReturn[1] = total;

@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
-public class EXO8 {
+public class TD3EXO8 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        System.out.println(EXO8.calculE(n));
+        System.out.println(TD3EXO8.calculE(n));
     }
 
     public static double calculE(int n){
