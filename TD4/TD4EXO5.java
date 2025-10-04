@@ -2,10 +2,14 @@
 public class TD4EXO5 {
     public static void main(String[] args) {
         int[] tab = {4, 0, 5, 2, 0, 0, 2, 4, 0, 4};
-        TD4EXO5.triSelection(tab);
+        int[] newTab = TD4EXO5.triSelection(tab);
+        for(int elt:newTab){
+            System.out.print(elt + " ");
+        }
+
     }
 
-    public static void triSelection(int[] tab){
+    public static int[] triSelection(int[] tab){
         for(int i = 0; i < tab.length; i++) {
             int minValueIndice = i;
 
@@ -19,8 +23,6 @@ public class TD4EXO5 {
             tab[minValueIndice] = valueTemp;
         }
 
-        for(int elt:tab){
-            System.out.print(elt + " ");
-        }
+        return tab;
     }
 }
