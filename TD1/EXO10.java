@@ -13,5 +13,6 @@ public class EXO10 {
             somme += age;
         };
         System.out.println(somme/n);
+        sc.close();
     };
 };

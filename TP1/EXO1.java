@@ -34,6 +34,7 @@ public class EXO1 {
                 default: {;}
             }
         } while (valid);
+        sc.close();
     }
 
     public static double Fibo(int n) {

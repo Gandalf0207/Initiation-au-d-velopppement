@@ -9,5 +9,6 @@ public class EXO9 {
             System.out.println(pow_3);
             pow_3 *= 3;
         }
+        sc.close();
     }
 }

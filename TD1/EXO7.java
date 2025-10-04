@@ -9,7 +9,8 @@ public class EXO7 {
         for(int i = 0; i<n; i++) {
             somme += sc.nextInt();
         }
-        System.out.print(somme);       
+        System.out.print(somme);     
+        sc.close();  
     }
 };
 

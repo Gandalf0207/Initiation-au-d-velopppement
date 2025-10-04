@@ -13,5 +13,6 @@ public class EXOMoyen {
         };
 
         System.out.println(U);
+        sc.close();
     } ;  
 };

@@ -18,6 +18,7 @@ public class EXO2 {
         System.out.println();
 
         EXO2.pyramideElaboree(h);
+        sc.close();
     }
 
     public static void afficheNombresCroissants (int nb1, int nb2){

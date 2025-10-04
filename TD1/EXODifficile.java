@@ -18,6 +18,7 @@ public class EXODifficile {
             lastiteration = cptExpo * -1 * (-1/(1+2*n));
         };
         System.out.println(U);
+        sc.close();
     };
 };
 

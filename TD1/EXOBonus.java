@@ -19,5 +19,6 @@ public class EXOBonus {
         }
 
         System.out.println(U);
+        sc.close();
     }
 }

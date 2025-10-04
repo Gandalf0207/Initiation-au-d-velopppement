@@ -11,5 +11,6 @@ public class Exo6 {
         }
        }
        System.out.print(max);
+       sc.close();
     }
 }

@@ -16,6 +16,7 @@ public class EXOMoyenBIS {
         };
 
         System.out.println(U);
+        sc.close();
         
     };
 };

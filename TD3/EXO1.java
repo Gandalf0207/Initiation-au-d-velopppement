@@ -11,6 +11,7 @@ public class EXO1 {
 
         //call procédures
         EXO1.pyramideSimple(h, c);
+        sc.close();
     }
 
     public static void repeteCarac(int nb, char car) {

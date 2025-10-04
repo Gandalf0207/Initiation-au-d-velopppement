@@ -13,5 +13,6 @@ public class EXO8 {
             userNombre /= 10;
         };
         System.out.println(somme);
+        sc.close();
     }
 }

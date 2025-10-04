@@ -13,5 +13,6 @@ public class Exo4 {
         } else {
             System.out.println("5€");
         }
+        sc.close();
     }
 }

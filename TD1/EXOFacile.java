@@ -9,6 +9,7 @@ public class EXOFacile {
         int r;
         n = sc.nextInt();
         p = sc.nextInt();
+        sc.close();
 
         if( n <= 0 || p <= 0) {
             System.out.println("Erreur Saisie");
