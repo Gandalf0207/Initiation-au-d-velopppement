@@ -9,7 +9,7 @@ public class TP2Main {
 
     public static void menuMarin() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("1 : Test Proba \n2 : Arivobato \n3 : ProbaEmpirique \n4 : Afficher Probas \n5 : Largeur Min \n0 : Exit \nAutre : Boucle Menu ");
+        System.out.println("1 : Test Proba \n2 : Arivobato \n3 : ProbaEmpirique \n4 : Afficher Probas \n5 : Largeur Min \n6 : Test Stabilité \n0 : Exit \nAutre : Boucle Menu ");
         int nb = sc.nextInt();
         switch (nb) {
             case 1:
@@ -31,6 +31,8 @@ public class TP2Main {
                 int lMin = TP2Main.largeurMin(20, 100, 0.02);
                 System.out.println(lMin);
             }
+            case 6:
+                TP2Main.testStabilite(20);
             case 0:
                 break;
             default:
@@ -142,5 +144,20 @@ public class TP2Main {
             largeur++;
         } while (proba < probasMarin);
         return largeur;
+    }
+
+    public static void testStabilite(int nbCalculs) {
+        int max = TP2Main.largeurMin(20, 100, 0.02); // état de base
+        int min = max;
+
+        for(int i = 0; i < nbCalculs; i++) {
+            int value = TP2Main.largeurMin(20, 100, 0.02);
+            if (value > max) {
+                max = value;
+            } else if (value < min) {
+                min = value;
+            }
+        }
+        System.out.println("Min : " + min + ", Max : " + max);
     }
 }
