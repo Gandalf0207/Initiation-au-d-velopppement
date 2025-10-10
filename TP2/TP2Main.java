@@ -1,21 +1,41 @@
 package TP2;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TP2Main {
     public static void main(String[] args) {
-        int [] planche = {10, 3};
-        int lMin = TP2Main.largeurMin(20, 100, 0.02);
-        System.out.println(lMin);
-//        TP2Main.afficherProbas(3, 5, 25, 10000);
-//        double proba = TP2Main.probaEmpirique(planche, 100);
-//        System.out.println(proba);
-//        boolean estArrive = TP2Main.arivobato(planche, true);
-//        System.out.println(estArrive);
-        // TP2Main.TestProbaGenerationAleatoire();
+        TP2Main.menuMarin();
     }
 
     public static void menuMarin() {
-
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1 : Test Proba \n2 : Arivobato \n3 : ProbaEmpirique \n4 : Afficher Probas \n5 : Largeur Min \n0 : Exit \nAutre : Boucle Menu ");
+        int nb = sc.nextInt();
+        switch (nb) {
+            case 1:
+                TP2Main.TestProbaGenerationAleatoire();
+            case 2: {
+                int [] planche = {20, 3};
+                boolean result = TP2Main.arivobato(planche, true);
+                System.out.println(result);
+            }
+            case 3: {
+                int [] planche = {10, 3};
+                double proba = TP2Main.probaEmpirique(planche, 100);
+                System.out.println(proba);
+            }
+            case 4:
+                TP2Main.afficherProbas(3, 5, 25, 10000);
+            case 5: {
+                int [] planche = {10, 3};
+                int lMin = TP2Main.largeurMin(20, 100, 0.02);
+                System.out.println(lMin);
+            }
+            case 0:
+                break;
+            default:
+                TP2Main.menuMarin();
+        }
     }
 
     public static int GenerationAleatoire() {
