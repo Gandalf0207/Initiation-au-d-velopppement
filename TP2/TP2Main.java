@@ -3,10 +3,19 @@ import java.util.Random;
 
 public class TP2Main {
     public static void main(String[] args) {
-        int [] planche = {20, 3};
-        boolean estArrive = TP2Main.arivobato(planche, true);
-        System.out.println(estArrive);
+        int [] planche = {10, 3};
+        int lMin = TP2Main.largeurMin(20, 100, 0.02);
+        System.out.println(lMin);
+//        TP2Main.afficherProbas(3, 5, 25, 10000);
+//        double proba = TP2Main.probaEmpirique(planche, 100);
+//        System.out.println(proba);
+//        boolean estArrive = TP2Main.arivobato(planche, true);
+//        System.out.println(estArrive);
         // TP2Main.TestProbaGenerationAleatoire();
+    }
+
+    public static void menuMarin() {
+
     }
 
     public static int GenerationAleatoire() {
@@ -78,9 +87,40 @@ public class TP2Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    public static double probaEmpirique(int[] plancheTaille, int nbMarins) {
+        int oui = 0;
+        for(int i = 0; i < nbMarins; i++) {
+            if (TP2Main.arivobato(plancheTaille, false)) {
+                oui++;
+            }
+        }
+        return oui / (nbMarins*1.0);
+    }
 
+    public static void afficherProbas(int largeur, int longMin, int longMax, int nbMarins) {
+        int taille = longMax-longMin +1;
+        double[] tableauProbas = new double [taille];
+        for (int i = longMin; i < longMax + 1; i++) {
+            int [] planche= {i, largeur};
+            double value = TP2Main.probaEmpirique(planche, nbMarins);
+            tableauProbas[i-longMin] = value;
+        }
 
+        for(int i = longMin; i < longMax +1; i++) {
+            System.out.println("Longueur : " + i + ", largeur : " + largeur + ", probaEmpirique : " + tableauProbas[i-longMin]);
+        }
+    }
+
+    public static int largeurMin(int longueur, int nbMarins, double probasMarin) {
+        int largeur = 3;
+        double proba;
+        do {
+            int [] planche = {longueur, largeur};
+            proba = TP2Main.probaEmpirique(planche, nbMarins);
+            largeur++;
+        } while (proba < probasMarin);
+        return largeur;
+    }
 }

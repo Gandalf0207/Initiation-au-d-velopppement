@@ -7,14 +7,13 @@ public class TD4EXO6 {
     }
 
     public static void compactage(int[] t){
-        for(int i = 0, j = t.length-1; i < j; i++) {
-            while(t[j] ==0) {
-                j--;
-            }
+        for(int i = 0; i < t.length; i++) {
 
-            if (t[i] == 0){
-                t[i] = t[j];
-                t[j] = 0;
+            if (t[i] == 0) {
+                for (int j = i; j < t.length-1; j++) {
+                    t[j] = t[j+1];
+                }
+                t[t.length-1] = 0;
             }
         }
 

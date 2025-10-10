@@ -1,11 +1,11 @@
 public class EXO3 {
     public static void main(String[] args) {
-        int[]tab = EXO3.frequencesChiffres(15121);
+        int[]tab = EXO3.frequencesChiffres(100);
         for(int elt:tab){
             System.out.println(elt);
         }
 
-        EXO3.aChiffresTousDifferents(15121);
+        EXO3.aChiffresTousDifferents(100);
     }
 
     public static int[] frequencesChiffres(int n) {
@@ -18,7 +18,7 @@ public class EXO3 {
             int value = n%10;
             n = n/ 10;
             tabIndiceOccurences[value] += 1;      
-        } while (n%10 != 0);
+        } while (n != 0);
     
         return tabIndiceOccurences;
     }
@@ -56,7 +56,7 @@ public class EXO3 {
             value = n%10;
             n = n/ 10;
             tabIndice[value] += 1;      
-        } while (tabIndice[value] < 2 && n%10 != 0);
+        } while (tabIndice[value] < 2 && n != 0);
         return (tabIndice[value] > 1) ? false:true;
     }
 
