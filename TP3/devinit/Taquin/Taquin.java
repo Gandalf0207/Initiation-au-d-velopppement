@@ -1,0 +1,101 @@
+package TP3.devinit.Taquin;
+
+
+public class Taquin {
+    
+    public static void main (String [] args) {
+
+        int[][] grille1 = { {0,1,2,3},
+                {4,5,6,7},
+                {8,9,10,11},
+                {12,13,15,14}
+        };
+
+        int[][] grille2 = { {1,0,2},
+                {4,5,3},
+                {7,8,6}
+        };
+
+        int [][] grille3 = { {1,2,3},
+                {4,5,6},
+                {7,8,0}
+        };
+
+        System.out.print(grille1);
+        System.out.println("---------------------------");
+
+        System.out.print(grille2);
+        System.out.println("---------------------------");
+
+
+        //======= Tests de sontDansLOrdre(i1,j1,i2,j2)
+
+        boolean res;
+        res = sontDansLOrdre(3,2,4,0);
+        System.out.println("Le carreau en position (3,2) est-il inférieur à celui en position (4,0) ? " + res);
+
+        //======= Tests de positionTrou
+
+        int[] trou1;
+        trou1 = positionTrou(grille1);
+        System.out.println("Les coordonnées du trou sont x=" + trou1[0] + " ; y=" + trou1[1]);
+
+        //======= Tests de estGagnant
+
+        boolean res2;
+        res2 = estGagnant(grille1);
+        System.out.println("Le taquin 1 (grille1) est solution ? " + res2);
+
+        //======= Tests de genererGrille
+
+        int[][] grilleAlea;
+        grilleAlea = genererGrille(4);
+        System.out.println("Grille valide générée aléatoirement de taille 4 :");
+        System.out.print(grilleAlea);
+
+    }
+
+    /** Résultat : vrai si les carreaux (i1,j1) et (i2,j2) sont dans l'ordre, et faux sinon.
+     L'ordre est lexicographique, selon la ligne, puis la colonne.
+     */
+    public static boolean sontDansLOrdre(int i1, int j1, int i2, int j2) {
+
+        if(i1 != i2) {
+            return i1 < i2;
+        } else {
+            return j1 < j2;
+        }
+    }
+
+    /** Résultat : un tableau de deux cases contenant les coordonnées du trou dans la grille 
+     */
+    public static int[] positionTrou(int[][] grille) {
+        int [] trou;       // Déclaration d'un tableau
+        trou = new int[2]; // Allocation mémoire d'un tableau (vide) de deux cases de type entier
+
+        /* A MODIFIER */
+
+        return trou;
+    }
+
+    /** Résultat : vrai si la grille contient les nombres dans l'ordre, et le trou en bas à droite ; faux sinon 
+     */
+    public static boolean estGagnant(int[][] grille) {
+
+        /* A MODIFIER */
+
+        return true;
+    }
+
+    /** Résultat : une grille générée aléatoirement mais valide, c'est-à-dire qui contient tous les nombres 
+     entre 0 et n^2 - 1
+     */
+    public static int[][] genererGrille(int n){
+        int[][] g = new int[n][n];
+
+        /* A MODIFIER */
+
+        return g;
+    }
+
+}
