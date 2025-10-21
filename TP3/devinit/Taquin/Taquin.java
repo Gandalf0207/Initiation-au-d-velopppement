@@ -1,7 +1,7 @@
 package TP3.devinit.Taquin;
-
-
 import java.util.Scanner;
+import UseFul.Matrice;
+
 
 public class Taquin {
     
@@ -53,9 +53,13 @@ public class Taquin {
         int[][] grilleAlea;
         grilleAlea = genererGrille(4);
         System.out.println("Grille valide générée aléatoirement de taille 4 :");
-        System.out.print(grilleAlea);
+        Matrice.afficherMatrice(grilleAlea);
 
-        jouer();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nb max de coup, k : ");
+        int nbMax = sc.nextInt();
+
+        jouer(nbMax);
     }
 
     /** Résultat : vrai si les carreaux (i1,j1) et (i2,j2) sont dans l'ordre, et faux sinon.
@@ -93,23 +97,15 @@ public class Taquin {
     public static boolean estGagnant(int[][] grille) {
         int[] posTrou = positionTrou(grille);
         if( posTrou[0] == (grille.length-1) && posTrou[1] == (grille.length-1)) {
-
-            // évolution de deux éléments pour check toutes les cases
-            for(int i1 = 0; i1 < grille.length; i1++) {
-                for(int j1 = 0; j1 < grille.length; j1++) {
-                    for(int i2 = 0; i2 < grille.length; i2++) {
-                        for(int j2 = 0; j2 < grille.length; j2++){
-                            if(sontDansLOrdre(i1, j1, i2, j2)) {
-
-                                // condition pour ne pas prendre en compte le dernier carré de la liste
-                                if ((i1 != (grille.length-1) && j1 != (grille.length-1)) && (i2 != (grille.length-1) && j2 != (grille.length-1))) {
-                                    if(grille[i1][j1] > grille[i2][j2]) {
-                                        return false;
-                                    }
-                                }
-
-                            }
-                        }
+            int cpt = 0;
+            for(int i = 0; i < grille.length; i++) {
+                for (int j = 0; j < grille.length; j++) {
+                    if(grille[i][j] > cpt) {
+                        cpt++;
+                    } else if((i == (grille.length-1)) && (j == (grille.length-1))) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 }
             }
@@ -126,39 +122,34 @@ public class Taquin {
     }
 
     public static void deplacerTrou(int[][] grille, int[] posTrou) {
-         char deplacement = saisirDeplacement();
-         int changement = 0;
-         switch (deplacement) {
-             case 'n' :{
-                 if (posTrou[1] > 0) {
-                     posTrou[1] --;
-                     changement ++;
-                 }
-             }
 
-             case 's': {
-                 if(posTrou[1] < grille.length -1) {
-                     posTrou[1] ++ ;
-                     changement -- ;
-                 }
-             }
-             case 'e': {
-                 if(posTrou[0] < grille.length -1) {
-                     posTrou[0] ++;
-                     changement --;
-                 }
-             }
-             case 'o': {
-                 if(posTrou[0] > 0) {
-                     posTrou[0] -- ;
-                     changement ++;
-                 }
-             }
+        boolean DeplacementPossible = false;
 
-             int value = grille[posTrou[0]][posTrou[1]];
-             grille[posTrou[0]][posTrou[1] + changement] = value;
-             grille[posTrou[0]][posTrou[1]] = 0;
-         }
+        do {
+            char deplacement = saisirDeplacement();
+
+            if (deplacement == 'n' && posTrou[0] > 0 ) {
+                int value = grille[posTrou[0] -1][posTrou[1]];
+                grille[posTrou[0]][posTrou[1]] = value;
+                grille[posTrou[0] -1][posTrou[1]] = 0;
+                DeplacementPossible = true;
+            } else if (deplacement == 's' && posTrou[0] < grille.length -1) {
+                int value = grille[posTrou[0] + 1][posTrou[1]];
+                grille[posTrou[0]][posTrou[1]] = value;
+                grille[posTrou[0] + 1][posTrou[1]] = 0;
+                DeplacementPossible = true;
+            } else if( deplacement == 'e' && posTrou[1] < grille.length -1) {
+                int value = grille[posTrou[0]][posTrou[1] +1];
+                grille[posTrou[0]][posTrou[1]] = value;
+                grille[posTrou[0]][posTrou[1] +1] = 0;
+                DeplacementPossible = true;
+            } else if(deplacement == 'o' && posTrou[1] > 0) {
+                int value = grille[posTrou[0]][posTrou[1] -1];
+                grille[posTrou[0]][posTrou[1]] = value;
+                grille[posTrou[0]][posTrou[1] -1] = 0;
+                DeplacementPossible = true;
+            }
+        } while (!DeplacementPossible);
     }
 
     /** Résultat : une grille générée aléatoirement mais valide, c'est-à-dire qui contient tous les nombres
@@ -172,28 +163,18 @@ public class Taquin {
         return g;
     }
 
-    public static void afficherGrille(int[][] grille) {
-        for(int[] item:grille) {
-            for(int elt:item) {
-                System.out.print(elt + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static void jouer() {
-        int[][] grille = {{0, 1, 2, 3},
-                {4, 5, 6, 7},
-                {8, 9, 10, 11},
-                {12, 13, 15, 14}
+    public static void jouer(int nbMax) {
+        int[][] grille = {{1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 0, 15}
         };
-
-        while (estGagnant(grille)) {
-            afficherGrille(grille);
+        int k = 0;
+        while (!estGagnant(grille) && k < nbMax) {
+            Matrice.afficherMatrice(grille);
             deplacerTrou(grille, positionTrou(grille));
+            k++;
         }
-
-
     }
 
 
