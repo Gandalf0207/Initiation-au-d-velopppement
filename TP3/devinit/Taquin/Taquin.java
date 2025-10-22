@@ -1,6 +1,7 @@
 package TP3.devinit.Taquin;
 import java.util.Scanner;
 import UseFul.Matrice;
+import UseFul.Calcul;
 
 
 public class Taquin {
@@ -55,11 +56,8 @@ public class Taquin {
         System.out.println("Grille valide générée aléatoirement de taille 4 :");
         Matrice.afficherMatrice(grilleAlea);
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nb max de coup, k : ");
-        int nbMax = sc.nextInt();
 
-        jouer(nbMax);
+        jouer();
     }
 
     /** Résultat : vrai si les carreaux (i1,j1) et (i2,j2) sont dans l'ordre, et faux sinon.
@@ -158,23 +156,63 @@ public class Taquin {
     public static int[][] genererGrille(int n){
         int[][] g = new int[n][n];
 
-        /* A MODIFIER */
+        // Affection toutes les valeurs dans un tableau de tempo
+        int[] tab = new int[n*n];
+        for(int i = 0; i< n*n; i++) {
+            tab[i] = i;
+        }
+
+        // Randomisation du tableau
+        Calcul.schuffleTab(tab);
+
+        // Affectation des valeurs dans la grille
+        for(int i = 0; i < n; i++) {
+            for (int j = 0; j< n; j++) {
+                g[i][j] = tab[i*n + j];
+            }
+        }
 
         return g;
     }
 
-    public static void jouer(int nbMax) {
-        int[][] grille = {{1, 2, 3, 4},
-                {5, 6, 7, 8},
-                {9, 10, 11, 12},
-                {13, 14, 0, 15}
-        };
-        int k = 0;
-        while (!estGagnant(grille) && k < nbMax) {
-            Matrice.afficherMatrice(grille);
-            deplacerTrou(grille, positionTrou(grille));
-            k++;
+    public static void parties() {
+
+        // calcul note joueur
+        int valide = 0
+
+        // nombre parties à jouer
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nb de parties : ");
+        int nbGame = sc.nextInt();
+
+        for(int i = 0; i < nbGame; i++) {
+            int[][] grille = genererGrille(4);
+
+            // nb max / game
+            System.out.print("Nb max de coup, k pour la parties actuelle : ");
+            int nbMax = sc.nextInt();
+
+            // jeu
+            int k = 0;
+            while (!estGagnant(grille) && (k+1)<= nbMax) {
+                Matrice.afficherMatrice(grille);
+                deplacerTrou(grille, positionTrou(grille));
+                k++;
+            }
+
+            // affection de la note
+            if(estGagnant(grille)) {
+                valide++;
+            }
         }
+
+        // note finale
+        System.out.println("Note : " + valide + " / " + nbGame);
+
+    }
+
+    public static void jouer() {
+        parties();
     }
 
 
