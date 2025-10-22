@@ -178,7 +178,7 @@ public class Taquin {
     public static void parties() {
 
         // calcul note joueur
-        int valide = 0
+        int valide = 0;
 
         // nombre parties à jouer
         Scanner sc = new Scanner(System.in);
