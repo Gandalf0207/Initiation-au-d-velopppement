@@ -8,10 +8,10 @@ public class Taquin {
     
     public static void main (String [] args) {
 
-        int[][] grille1 = { {0,1,2,3},
-                {4,5,6,7},
-                {8,9,10,11},
-                {12,13,15,14}
+        int[][] grille1 = { {1,2,3,4},
+                {5,6,7,8},
+                {9,10,11,0},
+                {13,15,14,12}
         };
 
         int[][] grille2 = { {1,0,2},
@@ -55,6 +55,8 @@ public class Taquin {
         grilleAlea = genererGrille(4);
         System.out.println("Grille valide générée aléatoirement de taille 4 :");
         Matrice.afficherMatrice(grilleAlea);
+
+        System.out.println(estGrilleResoluble(grille1));
 
 
         jouer();
@@ -211,8 +213,64 @@ public class Taquin {
 
     }
 
+    // créer le tableau dans le sens zig zag
+    // calculer nb transposition de tout les nombres
+    // calculer nb transposition de la position 0 initiale et l'arrivée
+    // comparé la parité de ses deux nombre :
+        // si égale alors soluble
+        // si pas égale alors pas soluble
+
+    public static boolean estGrilleResoluble(int[][] grille) {
+        int sommeRetar = 0;
+
+        int [] fullInTab = new int[grille.length*grille.length];
+
+        for(int i = 0; i < grille.length; i++) {
+
+            if(i%2 == 0) {
+                for(int j =0; j < grille.length; j++) {
+                    if (grille[i][j] != 0) {
+                        fullInTab[grille.length*i + j] = grille[i][j];
+                    } else {
+                        fullInTab[grille.length*i + j] = grille.length*grille.length;
+                    }
+                }
+            } else {
+                for(int j =grille.length-1; j > -1; j--) {
+                    if (grille[i][j] != 0) {
+                        fullInTab[grille.length*i - j] = grille[i][j];
+                    } else {
+                        fullInTab[grille.length*i - j] = grille.length*grille.length;
+                    }
+                }
+            }
+        }
+
+        System.out.println();
+        for(int elt:fullInTab) {
+            System.out.print(elt + " ");
+        }
+        System.out.println();
+        System.out.println();
+
+        int cpt;
+        for(int i = 0; i<fullInTab.length; i++) {
+            cpt = 0;
+            for (int j = i; j < fullInTab.length; j++) {
+                if(fullInTab[j] < fullInTab[i]) {
+                    cpt++;
+                }
+            }
+            sommeRetar += cpt;
+        }
+
+        return sommeRetar%2==0;
+
+
+    }
+
     public static void jouer() {
-        parties();
+        //parties();
     }
 
 
