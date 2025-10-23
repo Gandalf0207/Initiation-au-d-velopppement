@@ -1,61 +1,98 @@
-/*
 import java.util.Scanner;
 
 public class Exo8 {
     public static void main(String[] args) {
+
+    }
+
+    public static void q1() {
         Scanner sc = new Scanner(System.in);
 
-        // 1
-        int m = 0;  char text = sc.next.charAt(0);
+        int m = 0;
+        char text = sc.next().charAt(0);
+
         do {
             if(text == 'm') {
                 m++;
-                text = sc.next.charAt(0);
+                text = sc.next().charAt(0);
             }
         } while(text != '.');
-        System.out.print(m);
+    }
 
-        //2
-        int mot = 1; cchat text = sc.next.chatAt(0);
-        do {
-            if(text == ':' || text == '.') {
-                mot ++;
-                text = sc.next.chatAt(0);
-            }
-        } while(text != '.');
-        System.out.print(mot);
+    public static void q2() {
+        Scanner sc = new Scanner(System.in);
 
-        //3
-        int total = 0; char text = sc.next.charAt(0); boolean check = false;
+        int mot = 1;
+        char text = sc.next().charAt(0);
+
+        if(text == ':' || text =='.' ) {
+            mot++;
+            text = sc.next().charAt(0);
+
+        } while(text !='.');
+    }
+
+    public static void q3() {
+        Scanner sc = new Scanner(System.in);
+
+        int total = 0;
+        char text = sc.next().charAt(0);
+        boolean check = false;
+
         while(text != '.') {
             if(text == 'l' || text == 'e') {
                 if(text == 'e' && check) {
-                    total ++;
-                } else if (text == 'e') {
-                    check = false;
+                    total++;
+                } else if (text == 'l') {
+                    check = true;
                 }
             } else {
                 check = false;
             }
-            text = sc.next.charAt(0);
+            text = sc.next().charAt(0);
         }
-        System.out.print(total);
 
-        //4
-        int L = 0; char text = sc.next.charAt(0);
+        System.out.println(total);
+    }
+
+    public static void q4() {
+        Scanner sc = new Scanner(System.in);
+
+        int L= 0;
+        char text = sc.next().charAt(0);
+
         do {
-            if(text!= ':') {
+            if(text != ':') {
                 L++;
             } else {
-                L= 0;
+                L = 0;
             }
-            text = sc.next.charAt(0);
-        } while (text != '.');
-        System.out.print(L);
 
+            text = sc.next().charAt(0);
+        } while(text != '.');
+    System.out.println(L);
     }
+
+    public static void q5() {
+        Scanner sc = new Scanner(System.in);
+
+        int L = 0;
+        char text = sc.next().charAt(0);
+        int max = 0;
+
+        do {
+            if(text != ':') {
+                L++;
+            } else {
+                if(L > max) {
+                    max = L;
+                }
+                L = 0;
+            }
+            text = sc.next().charAt(0);
+        } while(text != '.');
+    System.out.println(max);
+    }
+
+
 }
-
-
-
-*/
