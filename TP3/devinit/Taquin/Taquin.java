@@ -8,56 +8,53 @@ public class Taquin {
     
     public static void main (String [] args) {
 
-        int[][] grille1 = { {1,2,3,4},
-                {5,6,7,8},
-                {9,10,11,12},
-                {13,15,14,0}
-        };
+        //int[][] grille1 = { {1,2,3,4},
+        //        {5,6,7,8},
+        //        {9,10,11,0},
+        //        {13,15,14,12}
+        //};
 
-        int[][] grille2 = { {1,0,2},
-                {4,5,3},
-                {7,8,6}
-        };
+        //int[][] grille2 = { {1,0,2},
+        //        {4,5,3},
+        //        {7,8,6}
+        //};
 
-        int [][] grille3 = { {1,2,3},
-                {4,5,6},
-                {7,8,0}
-        };
+        //int [][] grille3 = { {1,2,3},
+        //        {4,5,6},
+        //        {7,8,0}
+        //};
 
-        System.out.print(grille1);
-        System.out.println("---------------------------");
+        //System.out.print(grille1);
+        //System.out.println("---------------------------");
 
-        System.out.print(grille2);
-        System.out.println("---------------------------");
+        //System.out.print(grille2);
+        //System.out.println("---------------------------");
 
 
         //======= Tests de sontDansLOrdre(i1,j1,i2,j2)
 
-        boolean res;
-        res = sontDansLOrdre(3,2,4,0);
-        System.out.println("Le carreau en position (3,2) est-il inférieur à celui en position (4,0) ? " + res);
+        //boolean res;
+        //res = sontDansLOrdre(3,2,4,0);
+        //System.out.println("Le carreau en position (3,2) est-il inférieur à celui en position (4,0) ? " + res);
 
         //======= Tests de positionTrou
 
-        int[] trou1;
-        trou1 = positionTrou(grille1);
-        System.out.println("Les coordonnées du trou sont x=" + trou1[0] + " ; y=" + trou1[1]);
+        //int[] trou1;
+        //trou1 = positionTrou(grille1);
+        //System.out.println("Les coordonnées du trou sont x=" + trou1[0] + " ; y=" + trou1[1]);
 
         //======= Tests de estGagnant
 
-        boolean res2;
-        res2 = estGagnant(grille1);
-        System.out.println("Le taquin 1 (grille1) est solution ? " + res2);
+        //boolean res2;
+        //res2 = estGagnant(grille1);
+        //System.out.println("Le taquin 1 (grille1) est solution ? " + res2);
 
         //======= Tests de genererGrille
 
-        int[][] grilleAlea;
-        grilleAlea = genererGrille(4);
-        System.out.println("Grille valide générée aléatoirement de taille 4 :");
-        Matrice.afficherMatrice(grilleAlea);
-
-        System.out.println(estGrilleResoluble(grille1));
-
+        //int[][] grilleAlea;
+        //grilleAlea = genererGrille(4);
+        //System.out.println("Grille valide générée aléatoirement de taille 4 :");
+        //Matrice.afficherMatrice(grilleAlea);
 
         jouer();
     }
@@ -188,7 +185,7 @@ public class Taquin {
         int nbGame = sc.nextInt();
 
         for(int i = 0; i < nbGame; i++) {
-            int[][] grille = genererGrille(4);
+            int[][] grille = genererGrilleResoluble(4);
 
             // nb max / game
             System.out.print("Nb max de coup, k pour la parties actuelle : ");
@@ -213,52 +210,62 @@ public class Taquin {
 
     }
 
-    // créer le tableau dans le sens zig zag   ok
-    // calculer nb transposition de tous les nombres    ok
-    // calculer nb transposition de la position 0 initiale et l'arrivée    ok
-    // comparé la parité de ses deux nombres :
-        // si égale alors soluble
-        // si pas égale alors pas soluble
-
-    public static boolean estGrilleResoluble(int[][] grille) {
-
-        int [] fullInTab = new int[grille.length*grille.length];
-
-        // formation tableau zigzag depuis la matrice
+    public static int[] formationGrilleToTabSansZero(int[][] grille) {
+        int [] fullInTab = new int[grille.length*grille.length -1];
+        int index = 0;
         for(int i = 0; i < grille.length; i++) {
             for(int j =0, k = grille.length-1; j < grille.length; j++, k--) {
 
                 if(i%2==0) {
                     if (grille[i][j] != 0) {
-                        fullInTab[grille.length*i + j] = grille[i][j];
-                    } else {
-                        fullInTab[grille.length*i + j] = grille.length*grille.length;
+                        fullInTab[index] = grille[i][j];
+                        index++;
                     }
                 } else {
                     if (grille[i][k] != 0) {
-                        fullInTab[grille.length*i + j] = grille[i][k];
-                    } else {
-                        fullInTab[grille.length*i + j] = grille.length*grille.length;
+                        fullInTab[index] = grille[i][k];
+                        index++;
                     }
                 }
             }
         }
 
-        // calcul du nombre de transpositions pour chaque nombre (retard des éléments
+        return fullInTab;
+    }
+
+    public static int CalculNbTranspositionTab(int[] tab) {
         int sommeRetar = 0;
-        for(int i = 0; i<fullInTab.length; i++) {
-            for (int elt = i; elt <fullInTab.length; elt++) {
-                if(fullInTab[i] > fullInTab[elt]) {
+        for(int i = 0; i<tab.length; i++) {
+            for (int elt = i; elt <tab.length; elt++) {
+                if(tab[i] > tab[elt]) {
                     sommeRetar ++;
                 }
             }
         }
 
-        // calcul nb transposition qu'il faut au zero pour aller à la fin
-        int cpt = 0;
-        for(int i = 0; i < fullInTab.length; i++) {
-            cpt = fullInTab.length - i - 1; // le -1 c'est parce qu'on ne compte pas la place actuelle
-        }
+        return sommeRetar;
+    }
+
+    public static boolean estGrilleResoluble(int[][] grille) {
+
+
+        // formation tableau zigzag depuis la matrice
+        int[] fullInTab = formationGrilleToTabSansZero(grille);
+
+        // calcul du nombre de transpositions pour chaque nombre (retard des éléments
+        int sommeTranspositionGrilleDepart = CalculNbTranspositionTab(fullInTab);
+
+
+        // ------ //
+        int[][] grilleGoal = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 0},
+        };
+
+        int[] tabGoal = formationGrilleToTabSansZero(grilleGoal);
+        int sommeTranspositionGrilleGoal = CalculNbTranspositionTab(tabGoal);
 
 
         System.out.println();
@@ -269,13 +276,21 @@ public class Taquin {
         System.out.println();
 
 
-        return ((sommeRetar%2 == 0) == (cpt%2==0));
-
-
+        return ((sommeTranspositionGrilleDepart%2 == 0) == (sommeTranspositionGrilleGoal%2==0));
     }
 
+
+    public static int[][] genererGrilleResoluble(int n) {
+        int[][] grille;
+
+        do {
+            grille = genererGrille(n);
+        } while(!estGrilleResoluble(grille));
+
+        return grille;
+    }
     public static void jouer() {
-        //parties();
+        parties();
     }
 
 
