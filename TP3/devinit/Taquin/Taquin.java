@@ -10,8 +10,8 @@ public class Taquin {
 
         int[][] grille1 = { {1,2,3,4},
                 {5,6,7,8},
-                {9,10,11,0},
-                {13,15,14,12}
+                {9,10,11,12},
+                {13,15,14,0}
         };
 
         int[][] grille2 = { {1,0,2},
@@ -260,12 +260,14 @@ public class Taquin {
             cpt = fullInTab.length - i - 1; // le -1 c'est parce qu'on ne compte pas la place actuelle
         }
 
+
         System.out.println();
         for(int elt:fullInTab) {
             System.out.print(elt + " ");
         }
         System.out.println();
         System.out.println();
+
 
         return ((sommeRetar%2 == 0) == (cpt%2==0));
 
