@@ -36,6 +36,6 @@ public class TD5EXO5 {
     }
 
     public static boolean estSecurise(int[][] terrain) {
-
+        return false;
     }
 }

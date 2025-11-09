@@ -1,4 +1,3 @@
-package TP3.devinit.Taquin;
 import java.util.Scanner;
 import UseFul.Matrice;
 import UseFul.Calcul;
