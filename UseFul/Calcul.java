@@ -7,6 +7,16 @@ public class Calcul {
 
     }
 
+    public static int pgcd(int a, int b) {
+        int temp;
+        while (b != 0) {
+            temp = b;
+            b = a%b;
+            a = temp;
+        }
+        return a;
+    }
+
     public static int randomMinMax(int min, int max) {
         Random rnd = new Random();
         int nb = rnd.nextInt(max-min +1) + min;

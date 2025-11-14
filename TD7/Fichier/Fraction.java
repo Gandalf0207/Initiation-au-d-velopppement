@@ -1,5 +1,7 @@
 package TD7.Fichier;
 
+import static UseFul.Calcul.pgcd;
+
 public class Fraction {
     private int num;
     private int denom;
@@ -19,15 +21,30 @@ public class Fraction {
     }
 
     public void reduire() {
-
+        int value = pgcd(this.num, this.denom);
+        this.num /= value;
+        this.denom /= value;
     }
 
     public Fraction fractionReduite() {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        int value = pgcd(this.num, this.denom);
+        return new Fraction(this.num / value, this.denom / value);
+    }
+
+    public Fraction addition(Fraction f) {
+        return new Fraction(this.num*f.denom + this.denom*f.num, this.denom*f.denom);
     }
 
     public Fraction multiplication(Fraction f) {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        return new Fraction(this.num*f.num, this.denom*f.denom);
+    }
+
+    public Fraction division(Fraction f) {
+        if(f.num != 0 && f.denom != 0) {
+            return this.multiplication(f.inverse());
+        }
+
+        return new Fraction(0, 0);
     }
 
     public Fraction puissance(int n) {
@@ -35,12 +52,9 @@ public class Fraction {
     }
 
     public Fraction inverse() {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        return new Fraction(this.denom, this.num);
     }
 
-    public Fraction division(Fraction f) {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
-    }
 
 }
 
