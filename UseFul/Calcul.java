@@ -14,7 +14,7 @@ public class Calcul {
             b = a%b;
             a = temp;
         }
-        return a;
+        return Math.abs(a);
     }
 
     public static int randomMinMax(int min, int max) {

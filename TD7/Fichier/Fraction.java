@@ -17,7 +17,17 @@ public class Fraction {
     }
 
     public String toString() {
-        return this.num + "/" + this.denom;
+
+
+        int n = this.num;
+        int d = this.denom;
+
+        if ((n < 0 && d < 0) || (d < 0)) {
+            n = -n;
+            d = -d;
+        }
+
+        return n + "/" + d;
     }
 
     public void reduire() {
@@ -32,31 +42,45 @@ public class Fraction {
     }
 
     public Fraction addition(Fraction f) {
-        return new Fraction(this.num*f.denom + this.denom*f.num, this.denom*f.denom);
+        return new Fraction(
+                this.num * f.denom + this.denom * f.num,
+                this.denom * f.denom
+        );
     }
 
     public Fraction multiplication(Fraction f) {
-        return new Fraction(this.num*f.num, this.denom*f.denom);
+        return new Fraction(
+                this.num * f.num,
+                this.denom * f.denom
+        );
     }
 
     public Fraction division(Fraction f) {
-        if(f.num != 0 && f.denom != 0) {
-            return this.multiplication(f.inverse());
-        }
-
-        return new Fraction(0, 0);
-    }
-
-    public Fraction puissance(int n) {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        return this.multiplication(f.inverse());
     }
 
     public Fraction inverse() {
+        // NE PAS RÉDUIRE → les tests l’exigent !
         return new Fraction(this.denom, this.num);
     }
 
+    public Fraction puissance(int n) {
+        if (n < 0) {
+            Fraction pos = this.puissance(-n);
+            return new Fraction(pos.denom, pos.num);
+        }
 
+        if (n == 0) return new Fraction(1, 1);
+
+        Fraction result = new Fraction(1, 1);
+        for (int i = 0; i < n; i++) {
+            result = result.multiplication(this);
+        }
+
+        return result;
+    }
 }
+
 
 /**
  * Question 1 :
