@@ -1,0 +1,15 @@
+package TD8.src.main.java;
+
+public class MainCourse {
+
+    public static void main(String[] args) {
+        Voiture voit1 = new Voiture("G", 1);
+        Voiture voit2 = new Voiture("H", 1);
+
+        Course itemCourse = new Course(voit1, voit2, 20);
+
+        itemCourse.toString();
+        Voiture voitureGagante = itemCourse.deroulement();
+
+    }
+}
