@@ -6,6 +6,8 @@ public class Voiture {
     private String nom;
     private int vitesse;
     private int position;
+    private int sens;
+    private int nbLongPiste;
     /**
      * Pré-requis : (à compléter)
      * Action : crée une voiture de nom unNom et de vitesse uneVitesse
@@ -15,6 +17,8 @@ public class Voiture {
         this.nom = unNom;
         this.vitesse = uneVitesse;
         this.position = 0;
+        this.sens = 1;
+        this.nbLongPiste = 0;
     }
 
     /**
@@ -67,7 +71,27 @@ public class Voiture {
      * Pré-requis : (à compléter)
      * Action : fait avancer this d’une distance égale à sa vitesse
      */
-    public void avance() {
-        this.position += this.vitesse;
+    public void avance(int longueur) {
+        this.position += this.vitesse*this.sens;
+        if(this.position == longueur || this.position == 0) {
+            faireDemiTour();
+            this.nbLongPiste++;
+        }
+
     }
+    /**
+     * Action : fait faire demi tour à la voiture -> change son sens
+     * */
+    private void faireDemiTour() {
+        this.sens *= -1;
+    }
+
+    /**
+     * Action : retourne un boolean indiquant si la voiture a parcourue plus ou moins de tours que le nombre donnée.
+     * */
+    public boolean aParcourue(int nbLongueurs) {
+        return this.nbLongPiste >= nbLongueurs;
+    }
+
+
 }

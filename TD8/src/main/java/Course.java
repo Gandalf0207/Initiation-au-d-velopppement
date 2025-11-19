@@ -8,15 +8,17 @@ public class Course {
     private Voiture voit1;
     private Voiture voit2;
     private int longueur;
+    private int k;
 
     /**
      * Pré-requis : (à compléter)
      * Action : (à compléter)
      */
-    public Course(Voiture uneVoit1, Voiture uneVoit2, int longueur) {
+    public Course(Voiture uneVoit1, Voiture uneVoit2, int longueur, int k) {
         this.voit1 = uneVoit1;
         this.voit2 = uneVoit2;
         this.longueur = longueur;
+        this.k = k;
     }
 
     /**
@@ -45,24 +47,26 @@ public class Course {
         do {
             //avance voiture
             int value = randomNumbers.nextInt(2);
-            listVoit[value].avance();
+            listVoit[value].avance(this.longueur);
 
             // affichage
             Ut.clearConsole();
-            System.out.println("----------------------------------------------------------");
+            Affichage();
             System.out.print(this.voit1.affiche());
-            System.out.println("----------------------------------------------------------");
+            Affichage();
             System.out.print(this.voit2.affiche());
-            System.out.println("----------------------------------------------------------");
+            Affichage();
 
             Ut.pause(250);
 
-        } while(!(this.voit1.depasse(this.longueur) || this.voit2.depasse(this.longueur)));
+        } while(!(this.voit1.aParcourue(this.k) || this.voit2.aParcourue(this.k)));
+        return this.voit1.aParcourue(this.k) ? this.voit1:this.voit2;
+    }
 
-
-
-
-
-        return this.voit1.depasse(this.longueur) ? this.voit1:this.voit2;
+    public void Affichage() {
+        for(int i = 0; i < this.longueur+1; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }
