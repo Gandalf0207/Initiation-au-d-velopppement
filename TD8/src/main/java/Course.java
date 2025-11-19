@@ -47,7 +47,9 @@ public class Course {
         do {
             //avance voiture
             int value = randomNumbers.nextInt(2);
-            listVoit[value].avance(this.longueur);
+            //listVoit[value].avance(this.longueur);
+            listVoit[value].avancerAvecRebondissement(this.longueur);
+
 
             // affichage
             Ut.clearConsole();

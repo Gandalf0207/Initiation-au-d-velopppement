@@ -78,7 +78,15 @@ public class Voiture {
             faireDemiTour();
             this.nbLongPiste++;
         }
+    }
 
+    public void avancerAvecRebondissement(int longueur) {
+        this.position += this.vitesse*this.sens;
+        if(this.position >= longueur || this.position <= 0) {
+            this.position = (this.position>=longueur) ? longueur-(this.position-longueur):this.position*-1;
+            faireDemiTour();
+            this.nbLongPiste++;
+        }
     }
     /**
      * Action : fait faire demi tour à la voiture -> change son sens
