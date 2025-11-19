@@ -44,17 +44,20 @@ public class Course {
         Voiture[] listVoit = {this.voit1, this.voit2};
         do {
             //avance voiture
-            int value = randomNumbers.nextInt(1);
+            int value = randomNumbers.nextInt(2);
             listVoit[value].avance();
 
             // affichage
             Ut.clearConsole();
+            System.out.println("----------------------------------------------------------");
             System.out.print(this.voit1.affiche());
-            System.out.println();
+            System.out.println("----------------------------------------------------------");
             System.out.print(this.voit2.affiche());
+            System.out.println("----------------------------------------------------------");
+
             Ut.pause(250);
 
-        } while(!(this.voit1.depasse(this.longueur) || this.voit1.depasse(this.longueur)));
+        } while(!(this.voit1.depasse(this.longueur) || this.voit2.depasse(this.longueur)));
 
 
 
