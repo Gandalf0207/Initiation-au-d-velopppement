@@ -73,7 +73,8 @@ public class Voiture {
      */
     public void avance(int longueur) {
         this.position += this.vitesse*this.sens;
-        if(this.position == longueur || this.position == 0) {
+        if(this.position >= longueur || this.position <= 0) {
+            this.position = (this.position>longueur) ? longueur:0;
             faireDemiTour();
             this.nbLongPiste++;
         }
