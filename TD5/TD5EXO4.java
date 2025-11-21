@@ -6,63 +6,45 @@ public class TD5EXO4 {
     public static void main(String[] args) {
 
         int[][] mat = {
-                {1, 0, 1, 1},
-                {1, 1, 1, 1},
-                {1, 1, 1, 1},
-                {1, 1, 1, 1}
+                {1, 1, 1, 1, 1, 1},
+                {1, 1, 0, 1, 1, 1},
+                {1, 1, 0, 1, 1, 1},
+                {1, 1, 0, 1, 1, 1},
+                {1, 1, 0, 1, 1, 1},
+                {1, 1, 0, 1, 1, 1}
         };
 
-        int[] tab = sousMatriceCarre(mat,3);
+        int[] tab = sousMatriceCarre(mat,2);
         Tableau.afficherTableau(tab);
 
     }
 
     public static int[] sousMatriceCarre (int [][] mat , int k) {
 
-        int indexJStrat = -1;
-        int nbIStrick = 0;
-        int nbJStrick = 0;
-        int[] indexDebut = {-1, -1};
-
-        for(int i = 0; i < mat.length; i++) {
-            nbJStrick=0;
-            for (int j = 0; j < mat.length; j++) {
-                if(mat[i][j] == 1) {
-
-
-                    // fonctionne
-                    if(indexJStrat == -1 ){
-                        if((mat.length-j-k >= 0)) { // pour éviter de calculer por un truc qui sera trop petit
-                            indexJStrat = j;
-                            nbJStrick ++;
-                        }
-
-                    } else {
-                        if (nbJStrick < k && j >= indexJStrat) {
-                            if(k-1 == nbJStrick) {
-                                nbIStrick++;
-                            }
-                            nbJStrick++;
-                        }
-
-                        if(nbIStrick == k ){
-                            indexDebut[0] = i+1-k;
-                            indexDebut[1] = j+1-k;
-                            return indexDebut;
-                        }
-                    }
-
-                } else {
-                    indexJStrat = -1;
-
-                    nbJStrick = 0;
-                    nbIStrick = 0;
-                    indexDebut[0] = -1;
-                    indexDebut[1] = -1;
+        int[] coo = new int[2];
+        coo[0] = -1;
+        coo[1] = -1;
+        for (int i = 0; i < mat.length - k; i++) {
+            for (int j = 0; j < mat[0].length - k; j++) {
+                if (ssMathUn(mat, i, j, k)) {
+                    coo[0] = i;
+                    coo[1] = j;
+                    return coo;
                 }
             }
         }
+        return coo;
+    }
 
-        return indexDebut;
+    public static boolean ssMathUn(int[][] mat, int i0, int j0, int k) {
+        boolean b = true;
+        if(k > mat.length) {return false};
+
+        for(int i = i0; i < i0+k; i++) {
+            for (int j = j0; i < j0+k; j++) {
+                b = b && (mat[i][j] == 1);
+            }
+        }
+        return b;
     }
 }
