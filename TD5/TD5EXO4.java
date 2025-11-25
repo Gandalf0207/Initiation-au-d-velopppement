@@ -14,12 +14,12 @@ public class TD5EXO4 {
                 {1, 1, 0, 1, 1, 1}
         };
 
-        int[] tab = sousMatriceCarre(mat,2);
+        int[] tab = sousMatriceCarre(mat, 2);
         Tableau.afficherTableau(tab);
 
     }
 
-    public static int[] sousMatriceCarre (int [][] mat , int k) {
+    public static int[] sousMatriceCarre(int[][] mat, int k) {
 
         int[] coo = new int[2];
         coo[0] = -1;
@@ -38,10 +38,13 @@ public class TD5EXO4 {
 
     public static boolean ssMathUn(int[][] mat, int i0, int j0, int k) {
         boolean b = true;
-        if(k > mat.length) {return false};
+        if (k > mat.length) {
+            return false;
+        }
+        ;
 
-        for(int i = i0; i < i0+k; i++) {
-            for (int j = j0; i < j0+k; j++) {
+        for (int i = i0; i < i0 + k; i++) {
+            for (int j = j0; i < j0 + k; j++) {
                 b = b && (mat[i][j] == 1);
             }
         }
