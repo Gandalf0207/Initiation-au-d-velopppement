@@ -1,9 +1,9 @@
 package TD8BIS.src.java;
 
 public interface vehicule {
-    void avance();
+    public void avance();
 
-    boolean depasse(int limite);
+    public boolean depasse(int limite);
 
-    String affiche();
+    public String affiche();
 }
