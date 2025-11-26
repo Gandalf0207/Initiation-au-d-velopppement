@@ -1,5 +1,11 @@
 1. Il suffit de prendre 1 élements parmis 5 multiplié par 1 élément parmis 5
-(combinaision de 1 parmis 3 )² = 9 possibilités de course sdifférentes
+(combinaision de 1 parmis 3 )² = 9 possibilités de course différentes
 
 2. n² possibilités de courses avec n classe de véhicules
+
+3 / 4. A chaque fois que l'on veut opposer deux véhicules de type différents
+il nous faudra créer une nouvelle classe course car les types ne sont pas égaux
+
+5. De meme il nous faudrait établir des classe spécifique de courses pour chaque éléments
+les fonctions qui contiennent pour se déplacer...
 

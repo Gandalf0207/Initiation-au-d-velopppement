@@ -4,9 +4,11 @@ public class MainCourse {
 
     public static void main(String[] args) {
 
-        Voiture v1 = new Voiture("Bob" , 2);
-        Voiture v2 = new Voiture("Alice" , 3);
-        Course c = new Course(v1,v2,20);
+        vehicule v1 = new Voiture("Bob", 2);
+        vehicule v2 = new Velo("Alice", 3);
+        Course c = new Course(v1, v2, 60);
+        System.out.println(v1);
+        System.out.println(v2);
         v1 = c.deroulement();
         System.out.println("Gagnant : " + v1);
     }

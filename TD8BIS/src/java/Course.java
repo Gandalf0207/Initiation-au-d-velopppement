@@ -5,15 +5,15 @@ import TD8BIS.src.java.utile.Ut;
 
 public class Course {
 
-    private Voiture v1;
-    private Voiture v2;
+    private vehicule v1;
+    private vehicule v2;
     private int longueur;
 
 
-    public Course(Voiture uneVoit1, Voiture uneVoit2, int longueur) {
-       this.v1 = uneVoit1;
-       this.v2 = uneVoit2;
-       this.longueur = longueur;
+    public Course(vehicule uneVoit1, vehicule uneVoit2, int longueur) {
+        this.v1 = uneVoit1;
+        this.v2 = uneVoit2;
+        this.longueur = longueur;
     }
 
     /**
@@ -21,7 +21,7 @@ public class Course {
      * de this (sous la forme de votre choix)
      */
     public String toString() {
-      return "course entre " + this.v1.toString() + " et " + this.v2.toString() + "sur une piste de longueur " + this.longueur;
+        return "course entre " + this.v1.toString() + " et " + this.v2.toString() + "sur une piste de longueur " + this.longueur;
     }
 
     /**
@@ -35,30 +35,31 @@ public class Course {
      * <p>
      * Résultat : la voiture gagnante.
      */
-    public Voiture deroulement() {
-       while( ! this.v1.depasse(longueur) && ! this.v2.depasse(longueur) ) {
-           int random = Ut.randomMinMax(1,100);
-           if (random <= 50 ){
-               this.v1.avance();
-           }
-           else {
+    public vehicule deroulement() {
+        while (!this.v1.depasse(longueur) && !this.v2.depasse(longueur)) {
+            int random = Ut.randomMinMax(1, 100);
+            if (random <= 50) {
+                this.v1.avance();
+            } else {
 
-               this.v2.avance();
-           }
-           afficherEtat();
-           Ut.pause(100);
+                this.v2.avance();
+            }
+            afficherEtat();
+            Ut.pause(100);
 
-       }
-       if (this.v1.depasse(longueur)) {
-           return v1;
-       }
-       return v2;
+        }
+        if (this.v1.depasse(longueur)) {
+            return v1;
+        }
+        return v2;
     }
 
     private void afficherEtat() {
         System.out.println(v1.affiche());
         System.out.println(v2.affiche());
-        for (int i = 0; i <= longueur; i++) {System.out.print("-");}
+        for (int i = 0; i <= longueur; i++) {
+            System.out.print("-");
+        }
         System.out.println();
     }
 

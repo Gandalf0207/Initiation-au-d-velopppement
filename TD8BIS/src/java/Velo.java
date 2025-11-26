@@ -1,7 +1,10 @@
 package TD8BIS.src.java;
 
-public class Velo
-{
+public class Velo implements vehicule {
+    private String nom;
+    private int vitesseBase;
+    private int position;
+    private int endurance;
 
     /**
      * Action : crée un vélo de nom nom et de vitesse de base vitesseBase
@@ -9,7 +12,10 @@ public class Velo
      * Initialement l'endurance est maximale, c-a-d égale à 100
      */
     public Velo(String nom, int vitesseBase) {
-
+        this.nom = nom;
+        this.vitesseBase = vitesseBase;
+        this.position = 0;
+        this.endurance = 100;
     }
 
 
@@ -22,7 +28,16 @@ public class Velo
      */
 
     public void avance() {
-
+        if (endurance >= 70) {
+            this.position += this.vitesseBase;
+            this.endurance -= 10;
+        } else if (this.endurance >= 30) {
+            this.position += (int) (this.vitesseBase * 0.75);
+            this.endurance -= 10;
+        } else {
+            this.position += this.vitesseBase / 2 >= 1 ? this.vitesseBase / 2 : 1;
+            this.endurance -= this.endurance - 10 > 0 ? 10 : 0;
+        }
     }
 
     /**
@@ -31,7 +46,12 @@ public class Velo
      * à la ligne, le nombre d’espaces étant égal à la position de this.
      */
     public String affiche() {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        String s = "";
+        for (int i = 0; i < this.position; i++) {
+            s += " ";
+        }
+        s += "🚴" + String.format("%s\n", this.nom.charAt(0));
+        return s;
     }
 
     /**
@@ -39,7 +59,7 @@ public class Velo
      * supérieure ou égale à limite
      */
     public boolean depasse(int limite) {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        return this.position >= limite;
     }
 
     /**
@@ -47,7 +67,7 @@ public class Velo
      * de this (sous la forme de votre choix)
      */
     public String toString() {
-        throw new RuntimeException("Méthode non implémentée ! Effacez cette ligne et écrivez le code nécessaire");
+        return String.format("nom : %s \nendurance : %d \nposition : %d \nvitesseBase %d", this.nom, this.endurance, this.position, this.vitesseBase);
     }
 
 }

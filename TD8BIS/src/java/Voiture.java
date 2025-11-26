@@ -1,7 +1,7 @@
 package TD8BIS.src.java;
 
 
-public class Voiture {
+public class Voiture implements vehicule {
 
     private String nom;
     private int position;
@@ -22,8 +22,8 @@ public class Voiture {
      * de this (sous la forme de votre choix)
      */
     public String toString() {
-        return "Voiture " + this.nom + " ayant une vitesse de " + this.vitesse ;
-        }
+        return "Voiture " + this.nom + " ayant une vitesse de " + this.vitesse;
+    }
 
     /**
      * Résultat : retourne une chaîne de caractères formée d’une suite d’espaces
@@ -31,11 +31,11 @@ public class Voiture {
      * à la ligne, le nombre d’espaces étant égal à la position de this.
      */
     public String affiche() {
-        String s="";
+        String s = "";
         for (int i = 0; i < position; i++) {
-            s+=" ";
+            s += " ";
         }
-        s+=this.nom.charAt(0);
+        s += "🚗" + this.nom.charAt(0);
         return s;
     }
 
@@ -44,7 +44,7 @@ public class Voiture {
      * Action : fait avancer this d’une distance égale à sa vitesse
      */
     public void avance() {
-      this.position+=this.vitesse;
+        this.position += this.vitesse;
     }
 
 
@@ -53,7 +53,7 @@ public class Voiture {
      * supérieure ou égale à limite
      */
     public boolean depasse(int limite) {
-        return this.position>=limite;
+        return this.position >= limite;
     }
 }
 

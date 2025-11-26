@@ -44,7 +44,7 @@ public class TD5EXO4 {
         ;
 
         for (int i = i0; i < i0 + k; i++) {
-            for (int j = j0; i < j0 + k; j++) {
+            for (int j = j0; j < j0 + k; j++) {
                 b = b && (mat[i][j] == 1);
             }
         }
