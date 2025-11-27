@@ -8,6 +8,8 @@ public class EE {
     */
 
     //Définir les attributs ici.
+    private int[] ensTab;
+    private int cardinal;
 
     /*
     ==========================================================
@@ -17,7 +19,30 @@ public class EE {
      */
 
     //Coder les constructeurs ici.
+    public void EE(int max) {
+        this.cardinal = max;
+        this.ensTab = new int[this.cardinal];
+    }
 
+    public void EE(int max, int[] tab) {
+        this.cardinal = max;
+        this.ensTab = tab;
+    }
+
+    public void EE(int[] ens) {
+        for (int i = 0; i < this.ensTab.length; i++) {
+            this.ensTab[i] = ens[i];
+        }
+    }
+
+    public void EE(int max, String chaine) {
+        this.cardinal = max;
+        this.ensTab = new int[this.cardinal];
+        String[] tabNum = chaine.split(" ");
+        for (int i = 0; i < this.cardinal; i++) {
+            this.ensTab[i] = Integer.parseInt(tabNum[i]);
+        }
+    }
 
     /*
     ====================================
@@ -62,9 +87,10 @@ public class EE {
      * Pré-requis :
      * - x ne se trouve pas déjà dans l'ensemble
      * - this.ensTab n'est pas plein
+     *
      * @param x est un element à ajouter dans l'ensemble
-     * Action : ajoute x a l'ensemble courant
-     * Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
+     *          Action : ajoute x a l'ensemble courant
+     *          Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
     private void ajoutPratique(int x) {
         throw new RuntimeException("Méthode pas encore implémentée !");
@@ -72,8 +98,8 @@ public class EE {
 
     /**
      * @param i est l'indice de l'element du tableau this.ensTab à retirer de l'ensemble
-     * Pré-requis : 0 < i < this.cardinal
-     * Action : retire l'élément this.ensTab[i] de l'ensemble courant et le retourne
+     *          Pré-requis : 0 < i < this.cardinal
+     *          Action : retire l'élément this.ensTab[i] de l'ensemble courant et le retourne
      * @return l'élément retiré
      * Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
@@ -104,7 +130,7 @@ public class EE {
 
     /**
      * @param x est un élément à retirer de l'ensemble
-     * Action : tente de retirer x de l’ensemble courant.
+     *          Action : tente de retirer x de l’ensemble courant.
      * @return true si l'élément x appartient à l'ensemble (et a été retiré), false dans le cas contraire
      */
     public boolean retraitElt(int x) {
@@ -113,9 +139,8 @@ public class EE {
 
     /**
      * @param x est un élément à ajouter dans l'ensemble
-     * Action : tente d'ajouter x à l’ensemble courant.
-     * @return
-     * -1 si this.ensTab est plein (déborde)
+     *          Action : tente d'ajouter x à l’ensemble courant.
+     * @return -1 si this.ensTab est plein (déborde)
      * ; 0 si x est déjà contenu dans l'ensemble
      * ; 1 si x a bien été ajouté dans l'ensemble
      * Soyez malins et pensez à ré-utiliser les méthodes définies plus tôt.
@@ -127,6 +152,7 @@ public class EE {
     /**
      * Pre-requis : l'ensemble "this" n'est pas vide
      * Action : retire le dernier element de this et le retourne
+     *
      * @return l'élément retiré
      */
     public int selectDernierElt() {
@@ -136,6 +162,7 @@ public class EE {
     /**
      * Pre-requis : l'ensemble "this" n'est pas vide
      * Action : sélectionne aléatoirement un element de this, le retire et le retourne
+     *
      * @return l'élément retiré
      */
     public int selectEltAleatoirement() {
