@@ -1,3 +1,8 @@
+package TD9.src;
+
+import java.util.Random;
+import java.util.Scanner;
+
 public class EE {
 
     /*
@@ -19,28 +24,41 @@ public class EE {
      */
 
     //Coder les constructeurs ici.
-    public void EE(int max) {
-        this.cardinal = max;
-        this.ensTab = new int[this.cardinal];
+    public EE(int max) {
+        this.cardinal = 0;
+        this.ensTab = new int[max];
     }
 
-    public void EE(int max, int[] tab) {
-        this.cardinal = max;
-        this.ensTab = tab;
-    }
-
-    public void EE(int[] ens) {
-        for (int i = 0; i < this.ensTab.length; i++) {
-            this.ensTab[i] = ens[i];
+    public EE(int max, int[] tab) {
+        this.cardinal = tab.length;
+        this.ensTab = new int[max];
+        for (int i = 0; i < tab.length; i++) {
+            this.ensTab[i] = tab[i];
         }
     }
 
-    public void EE(int max, String chaine) {
-        this.cardinal = max;
-        this.ensTab = new int[this.cardinal];
-        String[] tabNum = chaine.split(" ");
-        for (int i = 0; i < this.cardinal; i++) {
-            this.ensTab[i] = Integer.parseInt(tabNum[i]);
+    public EE(EE ens) {
+        this.cardinal = ens.cardinal;
+        this.ensTab = new int[ens.ensTab.length];
+        for (int i = 0; i < ens.cardinal; i++) {
+            this.ensTab[i] = ens.ensTab[i];
+        }
+    }
+
+    public EE(int max, String num) {
+        this.ensTab = new int[max];
+        int[] tab = new int[num.length()];
+        Scanner sc = new Scanner(num);
+
+        int iaux = 0;
+        while (sc.hasNext()) {
+            tab[iaux] = sc.nextInt();
+            iaux++;
+        }
+
+        this.cardinal = iaux;
+        for (int i = 0; i < iaux; i++) {
+            this.ensTab[i] = tab[i];
         }
     }
 
@@ -56,14 +74,21 @@ public class EE {
      * (tous les éléments contenus dans l'ensemble).
      */
     public String toString() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        String s = "";
+        for (int i = 0; i < this.cardinal - 1; i++) {
+            if (this.ensTab[i] != 0) {
+                s += this.ensTab[i] + ", ";
+            }
+        }
+        s += this.cardinal > 0 ? this.ensTab[this.cardinal - 1] : " ";
+        return s;
     }
 
     /**
      * @return le cardinal de l’ensemble
      */
     public int getCardinal() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        return this.cardinal;
     }
 
     /**
@@ -72,7 +97,14 @@ public class EE {
      * l’indice du tableau this.ensTab où se trouve l’élément.
      */
     private int contientPratique(int x) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        for (int i = 0; i < this.getCardinal(); i++) {
+            int value = retraitPratique(i);
+            if (x == value) {
+                return i;
+            }
+            this.ajoutPratique(value);
+        }
+        return -1;
     }
 
     /**
@@ -80,7 +112,12 @@ public class EE {
      * @return true si l'élément x appartient à l'ensemble, false dans le cas contraire.
      */
     public boolean contient(int x) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        for (int i = 0; i < this.getCardinal(); i++) {
+            if (x == this.ensTab[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -93,7 +130,18 @@ public class EE {
      *          Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
     private void ajoutPratique(int x) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (!this.contient(x) && this.ensTab.length != this.cardinal) {
+            boolean add = false;
+            int i = 0;
+            do {
+                if (this.ensTab[i] == 0) {
+                    this.ensTab[i] = x;
+                    this.cardinal++;
+                    add = true;
+                }
+                i++;
+            } while (!add);
+        }
     }
 
     /**
@@ -104,21 +152,32 @@ public class EE {
      * Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
     private int retraitPratique(int i) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (0 < i && i < this.cardinal) {
+            int value = this.ensTab[i];
+            this.ensTab[i] = 0;
+            this.cardinal--;
+            return value;
+        }
+        return 0;
     }
 
     /**
      * @return true si l'ensemble est vide, false dans le cas contraire
      */
     public boolean estVide() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        for (int i = 0; i < this.cardinal; i++) {
+            if (this.ensTab[i] != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
      * @return true si le tableau this.ensTab est plein, false dans le cas contraire
      */
     public boolean deborde() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        return this.getCardinal() == this.ensTab.length;
     }
 
     /*
@@ -134,7 +193,11 @@ public class EE {
      * @return true si l'élément x appartient à l'ensemble (et a été retiré), false dans le cas contraire
      */
     public boolean retraitElt(int x) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (this.contient(x)) {
+            this.retraitPratique(x);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -146,7 +209,14 @@ public class EE {
      * Soyez malins et pensez à ré-utiliser les méthodes définies plus tôt.
      */
     public int ajoutElt(int x) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (this.deborde()) {
+            return -1;
+        } else if (this.contient(x)) {
+            return 0;
+        } else {
+            this.ajoutPratique(x);
+            return 1;
+        }
     }
 
     /**
@@ -156,7 +226,15 @@ public class EE {
      * @return l'élément retiré
      */
     public int selectDernierElt() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        int lastElt = 0;
+        if (!this.estVide()) {
+            for (int i = 0; i < this.cardinal; i++) {
+                if (this.ensTab[i] != 0) {
+                    lastElt = this.ensTab[i];
+                }
+            }
+        }
+        return lastElt;
     }
 
     /**
@@ -166,7 +244,15 @@ public class EE {
      * @return l'élément retiré
      */
     public int selectEltAleatoirement() {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (!this.estVide()) {
+            Random rd = new Random();
+            int value;
+            do {
+                value = rd.nextInt(this.cardinal - 1) + 1;
+            } while (this.ensTab[value] != 0);
+            return value;
+        }
+        return 0;
     }
 
     /**
@@ -175,7 +261,12 @@ public class EE {
      * (c'est-à-dire que tous les éléments de this sont inclus dans e), false dans le cas contraire
      */
     public boolean estInclus(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        for (int i = 0; i < this.cardinal; i++) {
+            if (!e.contient(this.ensTab[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -184,7 +275,7 @@ public class EE {
      * (c'est-à-dire qu'ils contiennent exactement les mêmes éléments), false dans le cas contraire.
      */
     public boolean estEgal(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        return this.estInclus(e) && e.getCardinal() == this.cardinal;
     }
 
     /**
@@ -192,7 +283,7 @@ public class EE {
      * @return true si this est disjoint de l'ensemble e (c'est-à-dire qu'ils n'ont aucun éléments en commun)
      */
     public boolean estDisjoint(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        return !this.estInclus(e);
     }
 
     /**
@@ -200,7 +291,21 @@ public class EE {
      * @return un ensemble représentant l'intersection entre l'ensemble this et l'ensemble e
      */
     public EE intersection(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        String s = "";
+        int cpt = 0;
+        if (this.estDisjoint(e)) {
+            return new EE(0);
+        } else {
+            for (int i = 0; i < this.cardinal; i++) {
+                int value = this.retraitPratique(i);
+                if (e.contient(value)) {
+                    s += value + " ";
+                    cpt++;
+                }
+                this.ajoutPratique(value);
+            }
+            return new EE(cpt, s);
+        }
     }
 
     /**
@@ -208,7 +313,33 @@ public class EE {
      * @return un ensemble représentant l'union entre l'ensemble this et l'ensemble e
      */
     public EE reunion(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        if (this.estVide() || e.estVide()) {
+            return this.estVide() ? e : new EE(this.cardinal, this.ensTab);
+        } else {
+            int cpt = 0;
+            for (int i = 0; i < this.cardinal; i++) {
+                int value = this.retraitPratique(i);
+                if (e.contient(value)) {
+                    cpt++;
+                }
+                this.ajoutPratique(value);
+            }
+
+            int lengthMax = e.getCardinal() + this.cardinal - cpt;
+            EE elt = new EE(lengthMax);
+
+            // ajout
+            for (int i = 0; i < this.cardinal; i++) {
+                elt.ajoutElt(this.ensTab[i]);
+            }
+            for (int i = 0; i < e.getCardinal(); i++) {
+                int value = e.retraitPratique(i);
+                elt.ajoutElt(value);
+                e.ajoutPratique(value);
+            }
+
+            return elt;
+        }
     }
 
     /**
@@ -216,7 +347,29 @@ public class EE {
      * @return un ensemble représentant la difference (ensembliste) entre l'ensemble this et l'ensemble e
      */
     public EE difference(EE e) {
-        throw new RuntimeException("Méthode pas encore implémentée !");
+        EE union = this.reunion(e);
+        int cpt = 0;
+        String s = "";
+
+        for (int i = 0; i < this.getCardinal(); i++) {
+            int value = this.retraitPratique(i);
+            if (!union.contient(value)) {
+                cpt++;
+                s += value;
+            }
+            this.ajoutPratique(value);
+        }
+
+        for (int i = 0; i < e.getCardinal(); i++) {
+            int value = e.retraitPratique(i);
+            if (!union.contient(value)) {
+                cpt++;
+                s += value;
+            }
+            e.ajoutPratique(value);
+        }
+
+        return new EE(cpt, s);
     }
 
 }
