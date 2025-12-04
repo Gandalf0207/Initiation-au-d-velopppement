@@ -182,7 +182,7 @@ public class EE {
      */
     public boolean retraitElt(int x) {
         if (this.contient(x)) {
-            this.retraitPratique(x);
+            this.retraitPratique(this.contientPratique(x));
             return true;
         }
         return false;

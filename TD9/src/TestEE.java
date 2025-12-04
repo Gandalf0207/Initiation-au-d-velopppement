@@ -50,8 +50,22 @@ public class TestEE {
         afficher(String.format("Méthode déborde \nDéborde ? : %s", methodeDéborde.deborde()), methodeDéborde);
 
 
-        // arrété à retraitElt(int x);
+        // methode retraitElt;
+        EE methodeRetraitElt = new EE(eltBase);
+        afficher(String.format("Méthode retrait elt\n Valeur : %s", methodeRetraitElt.retraitElt(2)), methodeRetraitElt);
 
+        //methode ajout elt
+        EE methodeAjoutElt = new EE(eltBase);
+        methodeAjoutElt.ajoutElt(4);
+        afficher("Méthode ajout elt", methodeAjoutElt);
+
+        // methode select dernier elt
+        EE methodeSelectDernierElt = new EE(eltBase);
+        afficher(String.format("Méthode dernier elt : %s", methodeSelectDernierElt.selectDernierElt()), methodeSelectDernierElt);
+
+        // methode select let aléatoirement
+        EE methodeSelecEltAleatoire = new EE(eltBase);
+        afficher(String.format("Méthode sélect aléatoire elt : %s", methodeSelecEltAleatoire.selectEltAleatoirement()), methodeSelecEltAleatoire);
 
         // ////////
         // Méthode privé :
