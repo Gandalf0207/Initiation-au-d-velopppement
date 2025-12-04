@@ -21,15 +21,44 @@ public class TestEE {
         EE elt4constructeur = new EE(6, "1 2 3 4 5 6");
         afficher("Quatrième constructeur", elt4constructeur);
 
-        // EE elt1 = new EE(5, new int[]{1, 2, 3, 4, 5});
-        // EE elt2 = new EE(4, new int[]{4, 5, 6, 7});
-//
-        // System.out.println("Intersection : ");
-        // System.out.println(elt1.intersection(elt2));
-        // System.out.println("Difference : ");
-        // System.out.println(elt1.difference(elt2));
-        // System.out.println("Reunion : ");
-        // System.out.println(elt1.reunion(elt2));
+
+        // /// ///
+        // elt de base
+        EE eltBase = new EE(6, "1 2 3");
+
+        // Méthode public :
+
+
+        // méthode toString
+        EE methodeToStringElt = new EE(eltBase);
+        afficher("Méthode toString", methodeToStringElt);
+
+        // méthode get cardinal
+        EE methideGetCardinal = new EE(eltBase);
+        afficher(String.format("Méthode Get Cardinal \nCarinal est de : %s", methideGetCardinal.getCardinal()), methideGetCardinal);
+
+        // méthode contient
+        EE methodeContient = new EE(eltBase);
+        afficher(String.format("Méthode contient \nValeur boolean : %s", methodeContient.contient(4)), methodeContient);
+
+        //méthode est vide
+        EE methodeEstvide = new EE(eltBase);
+        afficher(String.format("Méthode est vide \nEst vide ? : %s", methodeEstvide.estVide()), methodeEstvide);
+
+        //méthode déborde
+        EE methodeDéborde = new EE(2, "1 2");
+        afficher(String.format("Méthode déborde \nDéborde ? : %s", methodeDéborde.deborde()), methodeDéborde);
+
+
+        // arrété à retraitElt(int x);
+
+
+        // ////////
+        // Méthode privé :
+
+        eltBase.testFonction(eltBase);
+
+
     }
 
     public static void afficher(String s, EE elt) {

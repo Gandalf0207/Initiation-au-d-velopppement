@@ -97,12 +97,10 @@ public class EE {
      * l’indice du tableau this.ensTab où se trouve l’élément.
      */
     private int contientPratique(int x) {
-        for (int i = 0; i < this.getCardinal(); i++) {
-            int value = retraitPratique(i);
-            if (x == value) {
+        for (int i = 0; i < this.cardinal; i++) {
+            if (x == this.ensTab[i]) {
                 return i;
             }
-            this.ajoutPratique(value);
         }
         return -1;
     }
@@ -112,7 +110,7 @@ public class EE {
      * @return true si l'élément x appartient à l'ensemble, false dans le cas contraire.
      */
     public boolean contient(int x) {
-        for (int i = 0; i < this.getCardinal(); i++) {
+        for (int i = 0; i < this.cardinal; i++) {
             if (x == this.ensTab[i]) {
                 return true;
             }
@@ -130,31 +128,26 @@ public class EE {
      *          Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
     private void ajoutPratique(int x) {
-        if (!this.contient(x) && this.ensTab.length != this.cardinal) {
-            boolean add = false;
-            int i = 0;
-            do {
-                if (this.ensTab[i] == 0) {
-                    this.ensTab[i] = x;
-                    this.cardinal++;
-                    add = true;
-                }
-                i++;
-            } while (!add);
+        if (!this.contient(x) && !this.deborde()) {
+            this.ensTab[this.cardinal] = x;
+            this.cardinal++;
         }
     }
 
     /**
      * @param i est l'indice de l'element du tableau this.ensTab à retirer de l'ensemble
-     *          Pré-requis : 0 < i < this.cardinal
+     *          Pré-requis : 0 <= i < this.cardinal
      *          Action : retire l'élément this.ensTab[i] de l'ensemble courant et le retourne
      * @return l'élément retiré
      * Note : Cette méthode privée est un outil de base utilisable dans les méthodes qui suivent.
      */
     private int retraitPratique(int i) {
-        if (0 < i && i < this.cardinal) {
+        if (0 <= i && i < this.cardinal) {
             int value = this.ensTab[i];
-            this.ensTab[i] = 0;
+
+            for (int j = i; j < this.cardinal - 1; j++) {
+                this.ensTab[j] = this.ensTab[j + 1];
+            }
             this.cardinal--;
             return value;
         }
@@ -165,19 +158,14 @@ public class EE {
      * @return true si l'ensemble est vide, false dans le cas contraire
      */
     public boolean estVide() {
-        for (int i = 0; i < this.cardinal; i++) {
-            if (this.ensTab[i] != 0) {
-                return false;
-            }
-        }
-        return true;
+        return this.cardinal == 0;
     }
 
     /**
      * @return true si le tableau this.ensTab est plein, false dans le cas contraire
      */
     public boolean deborde() {
-        return this.getCardinal() == this.ensTab.length;
+        return this.cardinal == this.ensTab.length;
     }
 
     /*
@@ -226,15 +214,10 @@ public class EE {
      * @return l'élément retiré
      */
     public int selectDernierElt() {
-        int lastElt = 0;
         if (!this.estVide()) {
-            for (int i = 0; i < this.cardinal; i++) {
-                if (this.ensTab[i] != 0) {
-                    lastElt = this.ensTab[i];
-                }
-            }
+            return this.retraitPratique(this.cardinal - 1);
         }
-        return lastElt;
+        return 0;
     }
 
     /**
@@ -246,11 +229,8 @@ public class EE {
     public int selectEltAleatoirement() {
         if (!this.estVide()) {
             Random rd = new Random();
-            int value;
-            do {
-                value = rd.nextInt(this.cardinal - 1) + 1;
-            } while (this.ensTab[value] != 0);
-            return value;
+            int value = rd.nextInt(this.cardinal);
+            return this.retraitPratique(value);
         }
         return 0;
     }
@@ -275,7 +255,7 @@ public class EE {
      * (c'est-à-dire qu'ils contiennent exactement les mêmes éléments), false dans le cas contraire.
      */
     public boolean estEgal(EE e) {
-        return this.estInclus(e) && e.getCardinal() == this.cardinal;
+        return e.getCardinal() == this.cardinal && this.estInclus(e);
     }
 
     /**
@@ -283,7 +263,12 @@ public class EE {
      * @return true si this est disjoint de l'ensemble e (c'est-à-dire qu'ils n'ont aucun éléments en commun)
      */
     public boolean estDisjoint(EE e) {
-        return !this.estInclus(e);
+        for (int i = 0; i < this.cardinal; i++) {
+            if (e.contient(this.ensTab[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -293,16 +278,16 @@ public class EE {
     public EE intersection(EE e) {
         String s = "";
         int cpt = 0;
+
         if (this.estDisjoint(e)) {
             return new EE(0);
         } else {
             for (int i = 0; i < this.cardinal; i++) {
-                int value = this.retraitPratique(i);
+                int value = this.ensTab[i];
                 if (e.contient(value)) {
                     s += value + " ";
                     cpt++;
                 }
-                this.ajoutPratique(value);
             }
             return new EE(cpt, s);
         }
@@ -316,26 +301,15 @@ public class EE {
         if (this.estVide() || e.estVide()) {
             return this.estVide() ? e : new EE(this.cardinal, this.ensTab);
         } else {
-            int cpt = 0;
-            for (int i = 0; i < this.cardinal; i++) {
-                int value = this.retraitPratique(i);
-                if (e.contient(value)) {
-                    cpt++;
-                }
-                this.ajoutPratique(value);
-            }
-
-            int lengthMax = e.getCardinal() + this.cardinal - cpt;
-            EE elt = new EE(lengthMax);
+            int len = e.getCardinal() + this.cardinal;
+            EE elt = new EE(len);
 
             // ajout
             for (int i = 0; i < this.cardinal; i++) {
                 elt.ajoutElt(this.ensTab[i]);
             }
             for (int i = 0; i < e.getCardinal(); i++) {
-                int value = e.retraitPratique(i);
-                elt.ajoutElt(value);
-                e.ajoutPratique(value);
+                elt.ajoutElt(e.ensTab[i]);
             }
 
             return elt;
@@ -348,28 +322,37 @@ public class EE {
      */
     public EE difference(EE e) {
         EE union = this.reunion(e);
-        int cpt = 0;
-        String s = "";
 
-        for (int i = 0; i < this.getCardinal(); i++) {
-            int value = this.retraitPratique(i);
-            if (!union.contient(value)) {
-                cpt++;
-                s += value;
+        for (int i = 0; i < this.cardinal; i++) {
+            if (union.contient(this.ensTab[i])) {
+                union.retraitPratique(i);
             }
-            this.ajoutPratique(value);
         }
+        return union;
+    }
 
-        for (int i = 0; i < e.getCardinal(); i++) {
-            int value = e.retraitPratique(i);
-            if (!union.contient(value)) {
-                cpt++;
-                s += value;
-            }
-            e.ajoutPratique(value);
-        }
 
-        return new EE(cpt, s);
+    // méthodes en plus pour les tests
+
+    public void testFonction(EE eltBase) {
+        // methode contient pratique
+        EE methodeContientPratique = new EE(eltBase);
+        afficher(String.format("Méthode contientPratique \n indice élément contenu : %s", methodeContientPratique.contientPratique(2)), methodeContientPratique);
+
+        // méthode ajoutPratique
+        EE methodeAjoutPratique = new EE(eltBase);
+        methodeAjoutPratique.ajoutPratique(4);
+        afficher("Méthode ajoutPratique", methodeAjoutPratique);
+
+        // méthode retraitPratique
+        EE methodeRetraitPratique = new EE(eltBase);
+
+        afficher(String.format("Méthode retraitPratique \nValeur retiré : %s ", methodeRetraitPratique.retraitPratique(0)), methodeRetraitPratique);
+    }
+
+    public void afficher(String s, EE elt) {
+        System.out.println(s);
+        System.out.println(elt);
     }
 
 }
