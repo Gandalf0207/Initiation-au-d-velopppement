@@ -1,7 +1,5 @@
 package TD10.src.main.java.Base;
 
-import java.util.Random;
-
 public class EO {
 
     /*
@@ -50,7 +48,7 @@ public class EO {
     public String toString() {
         String s = "";
         for (int i = 0; i < this.cardinal - 1; i++) {
-            s += this.ensTab[i] + ", ";
+            s += "Orque" + this.ensTab[i] + ", ";
 
         }
         s += this.cardinal > 0 ? this.ensTab[this.cardinal - 1] : " ";
@@ -194,21 +192,6 @@ public class EO {
     }
 
     /**
-     * Pre-requis : l'ensemble "this" n'est pas vide
-     * Action : sélectionne aléatoirement un element de this, le retire et le retourne
-     *
-     * @return l'élément retiré
-     */
-    public Orque selectEltAleatoirement() {
-        if (!this.estVide()) {
-            Random rd = new Random();
-            int value = rd.nextInt(this.cardinal);
-            return this.retraitPratique(value);
-        }
-        return new Orque();
-    }
-
-    /**
      * @param e est un ensemble
      * @return true si this est inclus dans (ou à égal à) l'ensemble e
      * (c'est-à-dire que tous les éléments de this sont inclus dans e), false dans le cas contraire
@@ -249,15 +232,14 @@ public class EO {
      * @return un ensemble représentant l'intersection entre l'ensemble this et l'ensemble e
      */
     public EO intersection(EO e) {
-        EO ens = new EO(0);
+        EO ens = new EO(this.cardinal);
 
         if (this.estDisjoint(e)) {
-            return new EO(0);
+            return ens;
         } else {
             for (int i = 0; i < this.cardinal; i++) {
-                Orque value = this.ensTab[i];
-                if (e.contient(value)) {
-                    ens.ajoutElt(value);
+                if (e.contient(this.ensTab[i])) {
+                    ens.ajoutPratique(this.ensTab[i]);
                 }
             }
             return ens;
@@ -270,7 +252,7 @@ public class EO {
      */
     public EO reunion(EO e) {
         if (this.estVide() || e.estVide()) {
-            return this.estVide() ? e : new EO(this.cardinal, this.ensTab);
+            return this.estVide() ? new EO(e.getCardinal(), e.ensTab) : new EO(this.cardinal, this.ensTab);
         } else {
             int len = e.getCardinal() + this.cardinal;
             EO elt = new EO(len);
@@ -300,5 +282,24 @@ public class EO {
             }
         }
         return union;
+    }
+
+    /**
+     * Pré-requis : ensemble this est non vide
+     * Résultat/action : enlève un élément de this (aléatoirement) et le renvoie
+     */
+    public Orque retraitEltAleatoirement() {
+        int i = Ut.randomMinMax(0, this.cardinal - 1);
+        Orque select = retraitPratique(i);
+        return select;
+    }
+
+    /**
+     * Pré-requis : ensemble this est non vide
+     * Résultat : un élément quelconque de this choisi aléatoirement
+     */
+    public Orque selectionEltAleatoirement() {
+        int i = Ut.randomMinMax(0, this.cardinal - 1);
+        return this.ensTab[i];
     }
 }
