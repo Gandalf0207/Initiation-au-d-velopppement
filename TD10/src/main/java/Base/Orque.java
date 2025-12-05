@@ -8,7 +8,7 @@ public class Orque {
     private static int nextId = 0;
     private static Orque legende = null;
 
-    void Orque() {
+    public Orque() {
         this.id = Orque.nextId;
         Orque.nextId++;
     }
@@ -19,11 +19,11 @@ public class Orque {
 
         if (x == 0) {
             this.score++;
-            this.miseAJourLegende();
+            o.miseAJourLegende();
             o.meurt();
             return this;
         } else {
-            this.score++;
+            o.score++;
             this.miseAJourLegende();
             this.meurt();
             return o;
@@ -35,12 +35,18 @@ public class Orque {
     }
 
     public void miseAJourLegende() {
-        if (this.score > Orque.legende.score) {
+        if (Orque.legende == null) {
+            Orque.legende = this;
+        } else if (this.score > Orque.legende.score) {
             Orque.legende = this;
         }
     }
 
     public String toString() {
         return String.format("Orque n°id : %s", this.id);
+    }
+
+    public Orque getLegend() {
+        return this.legende;
     }
 }
