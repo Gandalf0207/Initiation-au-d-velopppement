@@ -11,6 +11,9 @@ public class Orque {
     private static int nextId = 0;
     private static Orque legende = null;
 
+    private Random r = new Random();
+
+
     public Orque() {
         this.id = Orque.nextId;
         Orque.nextId++;
@@ -18,29 +21,47 @@ public class Orque {
     }
 
     public Orque duel(Orque o) {
-        Random r = new Random();
-
 
         while (o.pv > 0 && this.pv > 0) {
 
             int x = r.nextInt(1);
-            // il faut faire les dégats :
+
             if (x == 0) {
-                this.score++;
-                o.miseAJourLegende();
-                o.meurt();
-                return this;
+                taper(this, o);
             } else {
-                o.score++;
-                this.miseAJourLegende();
-                this.meurt();
-                return o;
+                taper(o, this);
             }
+        }
+
+        if (this.estVivant()) {
+            this.score++;
+            o.miseAJourLegende();
+            return this;
+        } else {
+            o.score++;
+            this.miseAJourLegende();
+            return o;
+        }
+    }
+
+    public void taper(Orque attaquant, Orque defenseur) {
+
+
+        if (r.nextInt(101) < attaquant.arme.getCouleur().getPourcentage()) {
+            defenseur.pv -= attaquant.arme.getType().getValue();
+        }
+
+        if (defenseur.pv <= 0) {
+            defenseur.meurt();
         }
     }
 
     public void meurt() {
         this.pv = 0;
+    }
+
+    public boolean estVivant() {
+        return this.pv > 0;
     }
 
     public void miseAJourLegende() {

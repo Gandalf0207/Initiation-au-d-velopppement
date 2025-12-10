@@ -43,16 +43,16 @@ public class Arme {
     public Arme() {
         Random r = new Random();
 
-        int[] armeType = {15, 12, 8, 10};
-        int[] armeCouleur = {90, 80, 70, 60};
+        type = Type.values()[r.nextInt(4)];
+        couleur = Couleur.values()[r.nextInt(4)];
+        
+    }
 
-        int a = r.nextInt(4);
-        int b = r.nextInt(4);
-        type = Type.values()[armeType[a]];
-        couleur = Couleur.values()[armeCouleur[b]];
+    public Type getType() {
+        return type;
+    }
 
-        System.out.println(type.getValue());
-        System.out.println(couleur.getPourcentage());
-
+    public Couleur getCouleur() {
+        return couleur;
     }
 }
