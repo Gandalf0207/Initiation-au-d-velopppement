@@ -2,11 +2,11 @@ package TD10.src.main.java.Base;
 
 import java.util.Random;
 
-public class Arene {
+public class Forets {
     private EO ensOrques;
     private Orque vainqueur;
 
-    public Arene(int nbo) {
+    public Forets(int nbo) {
         this.ensOrques = new EO(nbo);
         for (int i = 0; i < nbo; i++) {
             this.ensOrques.ajoutElt(new Orque());
@@ -26,7 +26,7 @@ public class Arene {
 
 
             Orque gagnant = o1.duel(o2);
-            gagnant.regenPV(5); // regen fin d'un combat
+            gagnant.regenPV(20); // regen fin d'un combat
             this.ensOrques.ajoutElt(gagnant);
         }
         this.vainqueur = this.ensOrques.selectDernierElt();

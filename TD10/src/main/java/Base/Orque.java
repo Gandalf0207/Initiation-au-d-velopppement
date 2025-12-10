@@ -46,13 +46,30 @@ public class Orque {
 
     public void taper(Orque attaquant, Orque defenseur) {
 
-
         if (r.nextInt(101) < attaquant.arme.getCouleur().getPourcentage()) {
             defenseur.pv -= attaquant.arme.getType().getValue();
         }
 
         if (defenseur.pv <= 0) {
             defenseur.meurt();
+        }
+    }
+
+    public void pertePV(int nb) {
+        if(this.pv - nb <=0) {
+            this.pv -= Math.abs(this.pv -nb) + 1;
+        }
+        else {
+            this.pv -= nb;
+        }
+    }
+
+    public void regenPV(int nb) {
+        if(this.pv + nb > 100) {
+            this.pv += nb - (this.pv+nb -100);
+        }
+        else {
+            this.pv += nb;
         }
     }
 

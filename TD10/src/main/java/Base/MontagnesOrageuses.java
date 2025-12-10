@@ -2,11 +2,11 @@ package TD10.src.main.java.Base;
 
 import java.util.Random;
 
-public class Arene {
+public class MontagnesOrageuses {
     private EO ensOrques;
     private Orque vainqueur;
 
-    public Arene(int nbo) {
+    public MontagnesOrageuses(int nbo) {
         this.ensOrques = new EO(nbo);
         for (int i = 0; i < nbo; i++) {
             this.ensOrques.ajoutElt(new Orque());
@@ -22,7 +22,9 @@ public class Arene {
             Orque[] tabOrque = {o1, o2};
 
             // perte pv random
-            tabOrque[r.nextInt(1)].pertePV(5);
+            if(r.nextInt(10) < 6) { // 60% de change de frapper 1 des deux orques
+                tabOrque[r.nextInt(1)].pertePV(20);
+            }
 
 
             Orque gagnant = o1.duel(o2);
@@ -33,3 +35,4 @@ public class Arene {
         return this.vainqueur;
     }
 }
+
