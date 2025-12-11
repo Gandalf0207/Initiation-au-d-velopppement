@@ -9,10 +9,16 @@ public interface LieuCombat {
 
     EO getEnsOrque();
 
+    void AfficherLieu();
+
+
     default Orque bataille() {
 
         EO ensOrques = getEnsOrque();
         Random r = new Random();
+
+        // affichage
+        AfficherLieu();
 
 
         while (ensOrques.getCardinal() != 1) {

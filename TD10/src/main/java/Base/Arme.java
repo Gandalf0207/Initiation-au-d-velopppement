@@ -45,7 +45,7 @@ public class Arme {
 
         type = Type.values()[r.nextInt(4)];
         couleur = Couleur.values()[r.nextInt(4)];
-        
+
     }
 
     public Type getType() {
@@ -54,5 +54,9 @@ public class Arme {
 
     public Couleur getCouleur() {
         return couleur;
+    }
+
+    public String toString() {
+        return String.format("Arme{Type = %s, Couleur = %s", type, couleur);
     }
 }
