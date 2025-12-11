@@ -180,10 +180,21 @@ public class Liste {
      * valeurs rangées dans le même ordre.
      */
     public boolean estClone(Liste l) {
-        if (this.longueur() != l.longueur()) {
+        if (this.longueur() != l.longueur() && !this.estVide()) {
             return false;
         } else {
-            
+            Maillon curThis = this.tete;
+            Maillon curL = l.tete;
+
+            do {
+                if(curThis.getVal() != curL.getVal()) {
+                    return false;
+                }
+                curThis = curThis.getSuiv();
+                curL = curL.getSuiv();
+            } while(curThis != null);
+
+            return true;
         }
 
     }
@@ -195,7 +206,17 @@ public class Liste {
      * Contrainte : utilisez un parcours partiel
      */
     public boolean estSupK(int k) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if(k >= 0 && !this.estVide()) {
+            int cpt = 0;
+            Maillon curThis = this.tete;
+            do {
+                cpt ++;
+                curThis = curThis.getSuiv();
+            } while(curThis != null && cpt < k);
+            return cpt >= k;
+        }
+        return false;
+
     }
 
     /**
@@ -203,7 +224,14 @@ public class Liste {
      * Résultat : le dernier maillon de la liste 'this'
      */
     private Maillon dernierMaillon() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if(!this.estVide()) {
+            Maillon curThis = this.tete;
+            while(curThis.getSuiv() != null) {
+                curThis = curThis.getSuiv();
+            }
+            return curThis;
+        }
+        return null;
     }
 
     /**
@@ -211,7 +239,9 @@ public class Liste {
      * Résultat : la valeur contenue dans le dernier maillon de la liste 'this'
      */
     public int dernierElt() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+       if(!this.estVide()) {
+
+       }
     }
 
     /**
