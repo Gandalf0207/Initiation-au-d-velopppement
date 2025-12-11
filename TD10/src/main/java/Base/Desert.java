@@ -1,13 +1,10 @@
 package TD10.src.main.java.Base;
 
-
-import java.util.Random;
-
-public class MontagnesOrageuses implements LieuCombat {
+public class Desert implements LieuCombat {
     private EO ensOrques;
-    Random r = new Random();
 
-    public MontagnesOrageuses(int nbo) {
+
+    public Desert(int nbo) {
         this.ensOrques = new EO(nbo);
         for (int i = 0; i < nbo; i++) {
             this.ensOrques.ajoutElt(new Orque());
@@ -15,18 +12,14 @@ public class MontagnesOrageuses implements LieuCombat {
     }
 
     public void effetAvantCombat(Orque orque) {
-        if (r.nextInt(10) < 6) { // 60% de change de frapper 1 des deux orques
-            orque.pertePV(20); // perte pv random
-        }
+        orque.pertePV(10); // perte pv random
     }
 
     public void effetApresCombat(Orque gagnant) {
-        gagnant.regenPV(5); // regen fin d'un combat
+        gagnant.pertePV(15); // regen fin d'un combat
     }
 
     public EO getEnsOrque() {
         return this.ensOrques;
     }
-
 }
-

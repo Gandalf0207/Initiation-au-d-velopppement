@@ -1,21 +1,25 @@
 package TD10.src.main.java.Base;
 
-
-import java.util.Random;
-
 public class MainCombat {
-    private static Random r = new Random();
 
     public static void main(String[] args) {
+        LieuCombat l = new Arene(2);
+        Orque winner = l.bataille();
+        System.out.println("\n=====WINNER ARENE : " + winner);
 
-        // création arene
-        int nbArene = 6;
-        for (int i = 0; i < nbArene; i++) {
-            Arene arene = new Arene(r.nextInt(30) + 1);
-            Orque vainqueur = arene.bataille();
-            System.out.println(String.format("%s est vrainquer de l'arene n° %s. La légend de cette arene est %s", vainqueur, i + 1, vainqueur.getLegend()));
-        }
+        l = new Forets(3);
+        winner = l.bataille();
+        System.out.println("\n=====WINNER FORET: " + winner);
+
+        l = new MontagnesOrageuses(3);
+        winner = l.bataille();
+        System.out.println("\n=====WINNER MONTAGNE: " + winner);
+
+        l = new Desert(3);
+        winner = l.bataille();
+        System.out.println("\n=====WINNER DESERT: " + winner);
+
+        Orque o = Orque.getLegende();
+        System.out.println("\n=====ORQUE LEGENDE " + o);
     }
-
-
 }
