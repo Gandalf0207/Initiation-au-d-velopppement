@@ -34,6 +34,7 @@ public class EO {
         }
     }
 
+
     /*
     ====================================
     METHODES UTILES (section 3 du sujet)
