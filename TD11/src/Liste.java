@@ -151,7 +151,7 @@ public class Liste {
                 if (curThis.getVal() > max) {
                     max = curThis.getVal();
                 }
-                curThis = this.tete.getSuiv();
+                curThis = curThis.getSuiv();
             } while (curThis != null);
             return max;
         }
@@ -167,7 +167,7 @@ public class Liste {
             int cpt = 0;
             Maillon curThis = this.tete;
             do {
-                cpt += curThis.getVal() == 1 ? 1 : 0;
+                cpt += (curThis.getVal() == n) ? 1 : 0;
                 curThis = curThis.getSuiv();
             } while (curThis != null);
             return cpt;
@@ -180,23 +180,24 @@ public class Liste {
      * valeurs rangées dans le même ordre.
      */
     public boolean estClone(Liste l) {
-        if (this.longueur() != l.longueur() && !this.estVide()) {
+        if (this.longueur() != l.longueur()) {
             return false;
-        } else {
+        }
+
+        if (!this.estVide()) {
             Maillon curThis = this.tete;
             Maillon curL = l.tete;
 
             do {
-                if(curThis.getVal() != curL.getVal()) {
+                if (curThis.getVal() != curL.getVal()) {
                     return false;
                 }
                 curThis = curThis.getSuiv();
                 curL = curL.getSuiv();
-            } while(curThis != null);
-
-            return true;
+            } while (curThis != null);
         }
 
+        return true;
     }
 
     /**
@@ -206,13 +207,13 @@ public class Liste {
      * Contrainte : utilisez un parcours partiel
      */
     public boolean estSupK(int k) {
-        if(k >= 0 && !this.estVide()) {
+        if (k >= 0 && !this.estVide()) {
             int cpt = 0;
             Maillon curThis = this.tete;
             do {
-                cpt ++;
+                cpt++;
                 curThis = curThis.getSuiv();
-            } while(curThis != null && cpt < k);
+            } while (curThis != null && cpt < k);
             return cpt >= k;
         }
         return false;
@@ -224,9 +225,9 @@ public class Liste {
      * Résultat : le dernier maillon de la liste 'this'
      */
     private Maillon dernierMaillon() {
-        if(!this.estVide()) {
+        if (!this.estVide()) {
             Maillon curThis = this.tete;
-            while(curThis.getSuiv() != null) {
+            while (curThis.getSuiv() != null) {
                 curThis = curThis.getSuiv();
             }
             return curThis;
@@ -239,9 +240,11 @@ public class Liste {
      * Résultat : la valeur contenue dans le dernier maillon de la liste 'this'
      */
     public int dernierElt() {
-       if(!this.estVide()) {
-
-       }
+        if (!this.estVide()) {
+            Maillon lastElt = dernierMaillon();
+            return lastElt.getVal();
+        }
+        return 0;
     }
 
     /**
@@ -251,8 +254,14 @@ public class Liste {
      * une version plus efficace de ajoutFin.
      */
     public void ajoutFin(int n) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.estVide()) {
+            this.tete = new Maillon(n);
+        } else {
+            Maillon last = this.dernierMaillon();
+            last.setSuiv(new Maillon(n));
+        }
     }
+
 
     /**
      * Action : ajoute un élément de valeur n comme dernier élément de la liste 'this',
@@ -260,15 +269,47 @@ public class Liste {
      * Contrainte : la méthode parcourt totalement la liste au maximum une fois.
      */
     public void ajoutFinSiAbsent(int n) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+
+        // liste vide
+        if (this.tete == null) {
+            this.tete = new Maillon(n);
+            return;
+        }
+
+        Maillon cur = this.tete;
+
+        // Parcours jusqu'au dernier maillon
+        while (cur.getSuiv() != null) {
+            if (cur.getVal() == n) {
+                return;
+            }
+            cur = cur.getSuiv();
+        }
+
+        //  dernier maillon
+        if (cur.getVal() != n) {
+            cur.setSuiv(new Maillon(n));
+        }
     }
+
 
     /**
      * Résultat : une nouvelle liste contenant les éléments de valeur impaire de 'this'
      * Contrainte : l'ordre des éléments de la nouvelle liste n'a pas d'importance
      */
     public Liste extraireImpairsTete() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.estVide()) {
+            return new Liste();
+        }
+        Liste newList = new Liste();
+        Maillon cur = this.tete;
+        while (cur != null) { // accès au dernier maillon
+            if (cur.getVal() % 2 != 0) {
+                newList.ajoutTete(cur.getVal());
+            }
+            cur = cur.getSuiv();
+        }
+        return newList;
     }
 
     /**
