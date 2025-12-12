@@ -312,19 +312,42 @@ public class Liste {
         return newList;
     }
 
+    // ici pas check
+
+
     /**
      * Résultat : une nouvelle liste contenant les éléments de valeur impaire de 'this'
      * Contrainte : l'ordre des éléments de la nouvelle liste doit être le même que dans 'this'
      */
     public Liste extraireImpairsQueue() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.estVide()) {
+            return new Liste();
+        }
+        Liste newList = new Liste();
+        Maillon cur = this.tete;
+        while (cur != null) { // accès au dernier maillon
+            if (cur.getVal() % 2 != 0) {
+                newList.ajoutFin(cur.getVal());
+            }
+            cur = cur.getSuiv();
+        }
+        return newList;
     }
 
     /**
      * Résultat : la liste 'this' tronquée après son k ème élément (si un tel élément existe)
      */
     public void tronquerK(int k) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.estSupK(k)) {
+            int cpt = 0;
+            Maillon cur = this.tete;
+
+            while (cpt < k) {
+                cpt++;
+                cur = cur.getSuiv();
+            }
+            cur.setSuiv(null);
+        }
     }
 
     /**
@@ -332,14 +355,28 @@ public class Liste {
      * Résultat : true si l'élément n a été trouvé, sinon false
      */
     public boolean supprOcc(int n) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.contient(n)) {
+            Maillon cur = this.tete;
+            while (cur.getSuiv().getVal() != n) {
+                cur = cur.getSuiv();
+            }
+            cur.setSuiv(cur.getSuiv().getSuiv());
+        }
+        return false;
     }
 
     /**
      * Résultat : une nouvelle liste contenant les éléments de 'this' dans l'ordre inverse.
      */
     public Liste inverse() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        Liste newListe = new Liste();
+
+        Maillon cur = this.tete;
+        while (cur != null) {
+            newListe.ajoutTete(cur.getVal());
+            cur = cur.getSuiv();
+        }
+        return newListe;
     }
 
     /**
