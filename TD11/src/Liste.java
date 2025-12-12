@@ -338,32 +338,55 @@ public class Liste {
      * Résultat : la liste 'this' tronquée après son k ème élément (si un tel élément existe)
      */
     public void tronquerK(int k) {
-        if (this.estSupK(k)) {
-            int cpt = 0;
-            Maillon cur = this.tete;
+        if (k < 0 || this.tete == null) return;
 
-            while (cpt < k) {
-                cpt++;
-                cur = cur.getSuiv();
-            }
+        if (k == 0) {
+            this.tete = null;
+            return;
+        }
+
+        Maillon cur = this.tete;
+        int cpt = 1;
+
+        while (cur != null && cpt < k) {
+            cur = cur.getSuiv();
+            cpt++;
+        }
+
+        if (cur != null) {
             cur.setSuiv(null);
         }
     }
+
 
     /**
      * Action : supprime de la liste 'this' la première occurrence d'un entier n
      * Résultat : true si l'élément n a été trouvé, sinon false
      */
     public boolean supprOcc(int n) {
-        if (this.contient(n)) {
-            Maillon cur = this.tete;
-            while (cur.getSuiv().getVal() != n) {
-                cur = cur.getSuiv();
-            }
-            cur.setSuiv(cur.getSuiv().getSuiv());
+
+        if (this.tete == null) return false;
+
+        // Cas où la tête doit être supprimée
+        if (this.tete.getVal() == n) {
+            this.tete = this.tete.getSuiv();
+            return true;
         }
-        return false;
+
+        // Cas général
+        Maillon cur = this.tete;
+
+        while (cur.getSuiv() != null) {
+            if (cur.getSuiv().getVal() == n) {
+                cur.setSuiv(cur.getSuiv().getSuiv());
+                return true;
+            }
+            cur = cur.getSuiv();
+        }
+
+        return false; // pas trouvé
     }
+
 
     /**
      * Résultat : une nouvelle liste contenant les éléments de 'this' dans l'ordre inverse.
@@ -384,16 +407,30 @@ public class Liste {
      * Résultat : renvoie la reférence du nouveau maillon de tête
      */
     private Maillon inverseRec(Maillon m) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        // Cas de base : dernier maillon ou liste vide
+        if (m == null || m.getSuiv() == null) {
+            return m;
+        }
+
+        // Inversion du suffixe
+        Maillon newHead = inverseRec(m.getSuiv());
+
+        // On rattache le maillon suivant sur m
+        m.getSuiv().setSuiv(m);
+        m.setSuiv(null);  // m devient le dernier
+
+        return newHead;
     }
+
 
     /**
      * Action :  inverse les éléments de 'this' en faisant appel à la méthode
      * récursive privée "inverseRec (Maillon m)".
      */
     public void inverseRec() {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        this.tete = inverseRec(this.tete);
     }
+
 
     /**
      * Action : supprime de la liste 'this' toutes les occurrences d'un entier n
@@ -401,15 +438,44 @@ public class Liste {
      * (Une version simple à écrire mais coûteuse fait appel à supprOcc.)
      */
     public void suppToutesOcc(int n) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+
+        // Suppression des occurrences en tête
+        while (this.tete != null && this.tete.getVal() == n) {
+            this.tete = this.tete.getSuiv();
+        }
+
+        if (this.tete == null) return;
+
+        // Cas général
+        Maillon cur = this.tete;
+
+        while (cur.getSuiv() != null) {
+            if (cur.getSuiv().getVal() == n) {
+                cur.setSuiv(cur.getSuiv().getSuiv());
+            } else {
+                cur = cur.getSuiv();
+            }
+        }
     }
+
 
     /**
      * Résultat : true ssi la suite des éléments de 'this' est égale à la suite des
      * éléments commençant au maillon m, sinon false.
      */
     private boolean estPrefixe(Maillon m) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        Maillon curThis = this.tete;
+        Maillon curOther = m;
+
+        while (curThis != null) {
+            if (curOther == null) return false;
+            if (curThis.getVal() != curOther.getVal()) return false;
+
+            curThis = curThis.getSuiv();
+            curOther = curOther.getSuiv();
+        }
+
+        return true;
     }
 
     /**
@@ -418,6 +484,21 @@ public class Liste {
      * Exemple : (3,3,4) est un préfixe de la liste (1,6,3,3,4,2) à partir du 3ème maillon.
      */
     public boolean sousListe(Liste l) {
-        throw new RuntimeException("La méthode n'est pas encore implémentée!");
+        if (this.estVide()) return true;     // Une liste vide est sous-liste de n'importe quelle liste
+        if (l.estVide()) return false;
+
+        Maillon cur = l.tete;
+
+        while (cur != null) {
+            if (this.estPrefixe(cur)) {
+                return true;
+            }
+            cur = cur.getSuiv();
+        }
+
+        return false;
     }
+
+    // aide IA sur les 5 dernières méthodes
+
 }
